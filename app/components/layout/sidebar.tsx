@@ -8,6 +8,7 @@ import {
   Settings,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 const menuItems = [
   { icon: LayoutGrid, label: '대시보드', active: true },
@@ -21,7 +22,10 @@ export function Sidebar() {
   return (
     <aside className="flex w-64 flex-col bg-primary">
       {/* Logo */}
-      <div className="flex items-center justify-center gap-3 p-6 py-12">
+      <Link
+        href="/dashboard"
+        className="flex items-center justify-center gap-3 p-6 py-12"
+      >
         <figure className="flex h-12 w-12 items-center justify-center rounded-full bg-ring/80">
           <svg
             viewBox="0 0 24 24"
@@ -43,7 +47,7 @@ export function Sidebar() {
         <span className="text-xl font-['NanumSquareNeoExtraBold']">
           TeamBase
         </span>
-      </div>
+      </Link>
 
       <div>
         <div className="h-px bg-border w-full " />
