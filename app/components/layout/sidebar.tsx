@@ -22,7 +22,7 @@ export function Sidebar() {
     <aside className="flex w-64 flex-col bg-primary">
       {/* Logo */}
       <div className="flex items-center justify-center gap-3 p-6 py-12">
-        <figure className="flex h-12 w-12 items-center justify-center rounded-full bg-indigo-500">
+        <figure className="flex h-12 w-12 items-center justify-center rounded-full bg-ring/80">
           <svg
             viewBox="0 0 24 24"
             className="h-7 w-7"
@@ -58,7 +58,7 @@ export function Sidebar() {
           <button
             key={item.label}
             className={cn(
-              'flex w-full items-center gap-4 p-2.5 rounded-lg transition-colors ',
+              'flex w-full items-center gap-4 p-2.5 rounded-lg transition-colors',
               item.active
                 ? 'text-gray-800'
                 : 'text-gray-400 hover:text-gray-800 hover:bg-sidebar-active'
