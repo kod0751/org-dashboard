@@ -9,16 +9,19 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const menuItems = [
-  { icon: LayoutGrid, label: '대시보드', active: true },
-  { icon: BarChart3, label: '구성원', active: false },
-  { icon: FileText, label: '부서', active: false },
-  { icon: CalendarIcon, label: '일정', active: false },
-  { icon: Settings, label: '설정', active: false },
+  { icon: LayoutGrid, label: '대시보드', href: '/dashboard' },
+  { icon: BarChart3, label: '구성원', href: '/dashboard/employees' },
+  { icon: FileText, label: '부서', href: '/dashboard/departments' },
+  { icon: CalendarIcon, label: '일정', href: '/dashboard/schedule' },
+  { icon: Settings, label: '설정', href: '/dashboard/settings' },
 ];
 
 export function Sidebar() {
+  const pathname = usePathname();
+
   return (
     <aside className="flex w-64 flex-col bg-primary">
       {/* Logo */}
@@ -58,20 +61,25 @@ export function Sidebar() {
         aria-label="사이드바 메뉴"
         className="flex-1 space-y-2 p-6 text-md font-['NanumSquareNeoBold']"
       >
-        {menuItems.map((item) => (
-          <button
-            key={item.label}
-            className={cn(
-              'flex w-full items-center gap-4 p-2.5 rounded-lg transition-colors',
-              item.active
-                ? 'text-gray-800'
-                : 'text-gray-400 hover:text-gray-800 hover:bg-sidebar-active'
-            )}
-          >
-            <item.icon className="h-5 w-5" />
-            <span className="flex-1 text-left">{item.label}</span>
-          </button>
-        ))}
+        {menuItems.map((item) => {
+          const isActive = pathname === item.href;
+
+          return (
+            <Link
+              key={item.label}
+              href={item.href}
+              className={cn(
+                'flex w-full items-center gap-4 p-2.5 rounded-lg transition-colors',
+                isActive
+                  ? 'text-gray-800 bg-sidebar-active'
+                  : 'text-gray-400 hover:text-gray-800 hover:bg-sidebar-active'
+              )}
+            >
+              <item.icon className="h-5 w-5" />
+              <span className="flex-1 text-left">{item.label}</span>
+            </Link>
+          );
+        })}
       </nav>
     </aside>
   );
