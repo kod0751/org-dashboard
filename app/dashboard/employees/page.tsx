@@ -1,13 +1,9 @@
+'use client';
+
+import { DashboardHeader } from '@/app/components/layout/header';
 import { Avatar, AvatarImage } from '@/app/components/ui/avatar';
 import { Card } from '@/app/components/ui/card';
-import { Input } from '@/app/components/ui/input';
-import {
-  ArrowUpDown,
-  Ellipsis,
-  Plus,
-  Search,
-  SlidersHorizontal,
-} from 'lucide-react';
+import { ArrowUpDown, Ellipsis, SlidersHorizontal } from 'lucide-react';
 
 type Employee = {
   id: number;
@@ -60,21 +56,11 @@ export default function EmployeesPage() {
     <div className="bg-white min-h-full shadow-xl">
       <div className="flex flex-col gap-12 p-12">
         {/* Header */}
-        <header className="flex items-center justify-between font-['NanumSquareNeo']">
-          <h1 className="text-3xl">구성원</h1>
-          <div className="flex gap-4">
-            <div className="flex items-center gap-4 ml-4">
-              <div className="relative max-w-xs">
-                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-                <Input type="text" placeholder="검색" className="pl-9 py-5" />
-              </div>
-            </div>
-            <button className="flex items-center gap-2 px-4 rounded-lg bg-ring/80 text-white">
-              <Plus />
-              추가
-            </button>
-          </div>
-        </header>
+        <DashboardHeader
+          title="구성원"
+          searchPlaceholder="검색"
+          onAddClick={() => console.log('클릭')}
+        />
 
         <div className="flex justify-end -mb-8 font-['NanumSquareNeo']">
           <div className="flex gap-2">
