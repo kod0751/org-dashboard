@@ -1,16 +1,20 @@
-'use client';
-
-import type { ReactNode } from 'react';
 import { Sidebar } from '../components/layout/sidebar';
+import { createClient } from '@/lib/supabase/server';
 
-interface DashboardLayoutProps {
-  children: ReactNode;
-}
+export default async function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const supabase = await createClient();
 
-export default function DashboardLayout({ children }: DashboardLayoutProps) {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <div className="flex min-h-screen">
-      <Sidebar />
+      <Sidebar user={user} />
       <main className="flex-1">{children}</main>
     </div>
   );

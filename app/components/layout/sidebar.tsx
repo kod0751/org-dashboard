@@ -9,7 +9,10 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import type { User } from '@supabase/supabase-js';
+import { UserDropdown } from '../dropdown/UserDropdown';
+import { createClient } from '@/lib/supabase/client';
 
 const menuItems = [
   { icon: LayoutGrid, label: '대시보드', href: '/dashboard' },
@@ -19,8 +22,23 @@ const menuItems = [
   { icon: Settings, label: '설정', href: '/dashboard/settings' },
 ];
 
-export function Sidebar() {
+interface SidebarProps {
+  user: User | null;
+}
+
+export function Sidebar({ user }: SidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const displayname = user?.user_metadata.name || 'Guest';
+  const displayemail = user?.user_metadata.email || 'Guest@gamil.com';
+  const displayimg = user?.user_metadata.avatar_url || '';
+
+  const handleLogout = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push('/auth/login');
+  };
 
   return (
     <aside className="flex w-64 flex-col bg-primary">
@@ -81,6 +99,17 @@ export function Sidebar() {
           );
         })}
       </nav>
+
+      <div className="border-t border-sidebar-border p-2 font-['NanumSquareNeo']">
+        <UserDropdown
+          name={displayname}
+          email={displayemail}
+          avatar={displayimg}
+          onProfile={() => console.log('프로필')}
+          onSettings={() => console.log('설정')}
+          onLogout={() => handleLogout()}
+        />
+      </div>
     </aside>
   );
 }
