@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Button } from '@/app/components/ui/button';
 import { Input } from '@/app/components/ui/input';
 import { Eye, EyeOff, Mail, Lock } from 'lucide-react';
+import { createClient } from '@/lib/supabase/client';
 
 interface CardLoginFormProps {
   onSignup: () => void;
@@ -11,6 +12,21 @@ interface CardLoginFormProps {
 
 export default function LoginForm({ onSignup }: CardLoginFormProps) {
   const [showPassword, setShowPassword] = useState(false);
+
+  const supabase = createClient();
+
+  const handleGoogleLogin = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback?next=/dashboard`,
+      },
+    });
+
+    if (error) {
+      console.error('Error logging in:', error.message);
+    }
+  };
 
   return (
     <div className="p-8 space-y-6">
@@ -75,6 +91,7 @@ export default function LoginForm({ onSignup }: CardLoginFormProps) {
       <div className="grid grid-cols-1 gap-3">
         <Button
           variant="outline"
+          onClick={handleGoogleLogin}
           className="border-gray-200 hover:bg-gray-50 bg-transparent"
         >
           Google
