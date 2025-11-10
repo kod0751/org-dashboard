@@ -1,9 +1,11 @@
 'use client';
 
 import { DashboardHeader } from '@/app/components/layout/header';
+import { AddTeamMemberModal } from '@/app/components/modal/AddMemberModal';
 import { Avatar, AvatarImage } from '@/app/components/ui/avatar';
 import { Card } from '@/app/components/ui/card';
 import { ArrowUpDown, Ellipsis, SlidersHorizontal } from 'lucide-react';
+import { useState } from 'react';
 
 type Employee = {
   id: number;
@@ -13,7 +15,7 @@ type Employee = {
   email: string;
   updatedAt: string;
   img?: string;
-  status: string;
+  status?: string;
   type: '추가' | '수정';
 };
 
@@ -27,7 +29,6 @@ const employees: Employee[] = [
     updatedAt: '2025-11-02',
     img: 'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F5612288%2Fpexels-photo-5612288.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26h%3D627%26fit%3Dcrop%26w%3D1200&type=sc960_832',
     type: '추가',
-    status: '휴가',
   },
   {
     id: 2,
@@ -52,6 +53,10 @@ const employees: Employee[] = [
 ];
 
 export default function EmployeesPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpen = () => setIsModalOpen(true);
+
   return (
     <div className="bg-white min-h-full shadow-xl">
       <div className="flex flex-col gap-12 p-12">
@@ -59,7 +64,7 @@ export default function EmployeesPage() {
         <DashboardHeader
           title="구성원"
           searchPlaceholder="검색"
-          onAddClick={() => console.log('클릭')}
+          onAddClick={() => handleOpen()}
         />
 
         <div className="flex justify-end -mb-8 font-['NanumSquareNeo']">
@@ -115,6 +120,7 @@ export default function EmployeesPage() {
           </div>
         </Card>
       </div>
+      <AddTeamMemberModal open={isModalOpen} onOpenChange={setIsModalOpen} />
     </div>
   );
 }
