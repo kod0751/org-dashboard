@@ -5,6 +5,8 @@ import { Users, FolderKanban, MoreVertical, CalendarDays } from 'lucide-react';
 import { DashboardHeader } from '@/app/components/layout/header';
 import { Button } from '@/app/components/ui/button';
 import { cn } from '@/lib/utils';
+import { AddDepartmentModal } from '@/app/components/modal/AddDepartmentModal';
+import { useState } from 'react';
 
 type Department = {
   id: number;
@@ -61,6 +63,8 @@ const departments: Department[] = [
 ];
 
 export default function DepartmentsPage() {
+  const [isAddModalOpen, setAddModalOpen] = useState(false);
+
   return (
     <div className="bg-white min-h-full shadow-xl">
       <div className="flex flex-col gap-12 p-12">
@@ -69,7 +73,7 @@ export default function DepartmentsPage() {
           title="부서"
           searchPlaceholder="부서를 검색하세요"
           addLabel="추가"
-          onAddClick={() => console.log('새 부서 추가')}
+          onAddClick={() => setAddModalOpen(true)}
         />
 
         {/* 부서 요약 */}
@@ -164,6 +168,11 @@ export default function DepartmentsPage() {
             </Card>
           ))}
         </div>
+
+        <AddDepartmentModal
+          open={isAddModalOpen}
+          onOpenChange={setAddModalOpen}
+        />
       </div>
     </div>
   );
