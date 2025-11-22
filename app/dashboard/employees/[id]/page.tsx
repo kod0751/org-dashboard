@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/app/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { MoreVertical } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';

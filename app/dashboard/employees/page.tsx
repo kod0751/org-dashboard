@@ -2,9 +2,9 @@
 
 import { DashboardHeader } from '@/app/components/layout/header';
 import { AddMemberModal } from '@/app/components/modal/AddMemberModal';
-import { Avatar, AvatarImage } from '@/app/components/ui/avatar';
-import { Card } from '@/app/components/ui/card';
-import { MoreMenu } from '@/app/components/ui/more-menu';
+import { Avatar, AvatarImage } from '@/components/ui/avatar';
+import { Card } from '@/components/ui/card';
+import { MoreMenu } from '@/components/ui/more-menu';
 import { ArrowUpDown, SlidersHorizontal } from 'lucide-react';
 import { useState } from 'react';
 

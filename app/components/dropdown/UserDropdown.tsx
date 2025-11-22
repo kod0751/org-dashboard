@@ -6,13 +6,9 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-} from '@/app/components/ui/dropdown-menu';
-import { Button } from '@/app/components/ui/button';
-import {
-  Avatar,
-  AvatarImage,
-  AvatarFallback,
-} from '@/app/components/ui/avatar';
+} from '@/components/ui/dropdown-menu';
+import { Button } from '@/components/ui/button';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { User, Settings, LogOut } from 'lucide-react';
 
 interface UserDropdownProps {

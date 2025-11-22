@@ -1,5 +1,5 @@
-import { Avatar, AvatarImage } from '../ui/avatar';
-import { Card } from '../ui/card';
+import { Avatar, AvatarImage } from '../../../components/ui/avatar';
+import { Card } from '../../../components/ui/card';
 
 type Employee = {
   id: number;

@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from '@/app/components/ui/dropdown-menu';
+} from '@/components/ui/dropdown-menu';
 
 type MenuAction = {
   label: string;

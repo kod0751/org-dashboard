@@ -1,12 +1,12 @@
 'use client';
 
-import { Card } from '@/app/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Users, FolderKanban, CalendarDays } from 'lucide-react';
 import { DashboardHeader } from '@/app/components/layout/header';
 import { cn } from '@/lib/utils';
 import { AddDepartmentModal } from '@/app/components/modal/AddDepartmentModal';
 import { useState } from 'react';
-import { MoreMenu } from '@/app/components/ui/more-menu';
+import { MoreMenu } from '@/components/ui/more-menu';
 
 type Department = {
   id: number;

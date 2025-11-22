@@ -1,5 +1,5 @@
 import { Heart, Package, ShoppingBag, Briefcase } from 'lucide-react';
-import { Card } from '@/app/components/ui/card';
+import { Card } from '@/components/ui/card';
 
 interface State {
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
