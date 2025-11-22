@@ -1,7 +1,7 @@
 'use client';
 
 import { DashboardHeader } from '@/app/components/layout/header';
-import { AddTeamMemberModal } from '@/app/components/modal/AddMemberModal';
+import { AddMemberModal } from '@/app/components/modal/AddMemberModal';
 import { Avatar, AvatarImage } from '@/app/components/ui/avatar';
 import { Card } from '@/app/components/ui/card';
 import { ArrowUpDown, Ellipsis, SlidersHorizontal } from 'lucide-react';
@@ -120,7 +120,7 @@ export default function EmployeesPage() {
           </div>
         </Card>
       </div>
-      <AddTeamMemberModal open={isModalOpen} onOpenChange={setIsModalOpen} />
+      <AddMemberModal open={isModalOpen} onOpenChange={setIsModalOpen} />
     </div>
   );
 }
