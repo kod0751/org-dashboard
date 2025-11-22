@@ -37,7 +37,7 @@ export function DashboardHeader({
           {onAddClick && (
             <button
               onClick={onAddClick}
-              className="flex items-center gap-2 px-4 rounded-lg bg-ring/80 text-white"
+              className="flex items-center gap-2 px-4 rounded-lg bg-ring/80 text-white hover:bg-ring/90 transition-colors"
             >
               <Plus />
               {addLabel}
