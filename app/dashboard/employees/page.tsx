@@ -4,7 +4,8 @@ import { DashboardHeader } from '@/app/components/layout/header';
 import { AddMemberModal } from '@/app/components/modal/AddMemberModal';
 import { Avatar, AvatarImage } from '@/app/components/ui/avatar';
 import { Card } from '@/app/components/ui/card';
-import { ArrowUpDown, Ellipsis, SlidersHorizontal } from 'lucide-react';
+import { MoreMenu } from '@/app/components/ui/more-menu';
+import { ArrowUpDown, SlidersHorizontal } from 'lucide-react';
 import { useState } from 'react';
 
 type Employee = {
@@ -111,9 +112,19 @@ export default function EmployeesPage() {
                   <div className="truncate">{employee.department}</div>
                   <div className="truncate">{employee.email}</div>
                   <div className="truncate">{employee.status}</div>
-                  <button className="flex items-center justify-center w-full h-full rounded-lg hover:bg-gray-50">
-                    <Ellipsis className="w-4 h-4" />
-                  </button>
+                  <MoreMenu
+                    actions={[
+                      {
+                        label: '프로필 보기',
+                        onClick: () => console.log('view', employee.id),
+                      },
+                      {
+                        label: '삭제',
+                        danger: true,
+                        onClick: () => console.log('delete', employee.id),
+                      },
+                    ]}
+                  />
                 </div>
               </Card>
             ))}
