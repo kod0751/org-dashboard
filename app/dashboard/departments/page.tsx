@@ -1,12 +1,12 @@
 'use client';
 
 import { Card } from '@/app/components/ui/card';
-import { Users, FolderKanban, MoreVertical, CalendarDays } from 'lucide-react';
+import { Users, FolderKanban, CalendarDays } from 'lucide-react';
 import { DashboardHeader } from '@/app/components/layout/header';
-import { Button } from '@/app/components/ui/button';
 import { cn } from '@/lib/utils';
 import { AddDepartmentModal } from '@/app/components/modal/AddDepartmentModal';
 import { useState } from 'react';
+import { MoreMenu } from '@/app/components/ui/more-menu';
 
 type Department = {
   id: number;
@@ -161,9 +161,23 @@ export default function DepartmentsPage() {
 
               {/* 부서 상세 */}
               <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                <Button size="icon" variant="ghost" className="h-8 w-8">
-                  <MoreVertical className="w-4 h-4 text-gray-600" />
-                </Button>
+                <MoreMenu
+                  actions={[
+                    {
+                      label: '상세보기',
+                      onClick: () => console.log('view', dept.id),
+                    },
+                    {
+                      label: '수정',
+                      onClick: () => console.log('edit', dept.id),
+                    },
+                    {
+                      label: '삭제',
+                      danger: true,
+                      onClick: () => console.log('delete', dept.id),
+                    },
+                  ]}
+                />
               </div>
             </Card>
           ))}
