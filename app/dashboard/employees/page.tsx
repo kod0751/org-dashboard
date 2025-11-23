@@ -6,6 +6,7 @@ import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Card } from '@/components/ui/card';
 import { MoreMenu } from '@/components/ui/more-menu';
 import { ArrowUpDown, SlidersHorizontal } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 type Employee = {
@@ -54,6 +55,7 @@ const employees: Employee[] = [
 ];
 
 export default function EmployeesPage() {
+  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpen = () => setIsModalOpen(true);
@@ -116,7 +118,8 @@ export default function EmployeesPage() {
                     actions={[
                       {
                         label: '프로필 보기',
-                        onClick: () => console.log('view', employee.id),
+                        onClick: () =>
+                          router.push(`/dashboard/employees/${employee.id}`),
                       },
                       {
                         label: '삭제',
