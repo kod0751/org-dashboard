@@ -1,9 +1,9 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { MoreVertical } from 'lucide-react';
+import { ChevronLeft, MoreVertical } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 function InfoItem({ label, value }: { label: string; value?: string }) {
   return (
@@ -14,7 +14,9 @@ function InfoItem({ label, value }: { label: string; value?: string }) {
   );
 }
 
-export default function page() {
+export default function EmployeeDetailpage() {
+  const router = useRouter();
+
   const teamMember = {
     id: 1,
     name: '김지훈',
@@ -48,24 +50,13 @@ export default function page() {
         />
 
         {/* 상단 액션 바 */}
-        <div className="absolute top-0 left-0 right-0 p-6 flex justify-between items-center">
-          <Link href="/dashboard">
-            <button className="text-white hover:bg-black/20 p-2 rounded-full transition-colors">
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-            </button>
-          </Link>
+        <div className="absolute top-0 left-0 right-0 p-6 flex justify-between items-center z-10">
+          <button
+            onClick={() => router.back()}
+            className="text-white hover:bg-black/20 p-2 rounded-full transition-colors"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
 
           <button className="text-white hover:bg-black/20 p-2 rounded-full transition-colors">
             <MoreVertical className="w-5 h-5" />
