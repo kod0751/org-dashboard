@@ -4,12 +4,12 @@ export type DepartmentManager = Pick<
   Employee,
   'name' | 'avatar' | 'position'
 > & {
-  isManager: true;
+  is_manager: true;
 };
 
 export type DepartmentMember = Pick<
   Employee,
-  'id' | 'name' | 'position' | 'avatar' | 'isManager'
+  'id' | 'name' | 'position' | 'avatar' | 'is_manager'
 >;
 
 export type DepartmentProject = {
@@ -17,7 +17,7 @@ export type DepartmentProject = {
   name: string;
   progress: number;
   status: string;
-  dueDate: string;
+  due_date: string;
   description: string;
 };
 
@@ -25,21 +25,21 @@ export type Department = {
   id: number;
   name: string;
   manager: string; // 관리자 이름만
-  memberCount: number;
-  projectCount: number;
-  createdAt: string;
+  member_count: number;
+  project_count: number;
+  created_at: string;
   description: string;
   color: string;
 };
 
 export type DepartmentDetail = Omit<
   Department,
-  'manager' | 'memberCount' | 'projectCount'
+  'manager' | 'member_count' | 'project_count'
 > & {
   manager: DepartmentManager;
   location?: string;
   email?: string;
-  coverImage?: string;
+  cover_image?: string;
   members?: DepartmentMember[];
   projects?: DepartmentProject[];
   tags?: string[];

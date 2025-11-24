@@ -6,14 +6,14 @@ export type Employee = {
   email: string;
   avatar?: string;
   status?: string;
-  isManager?: boolean;
+  is_manager?: boolean;
 };
 
 export type EmployeeDetail = Employee & {
   phone?: string;
-  joinDate?: string;
+  join_date?: string;
   location?: string;
   skill?: string[];
-  coverImage?: string;
-  workType?: string; // '정규직', '계약직' 등
+  cover_image?: string;
+  work_type?: string; // '정규직', '계약직' 등
 };

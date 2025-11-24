@@ -20,15 +20,15 @@ const departmentData: Record<string, DepartmentDetail> = {
       name: '김지훈',
       position: 'Head of Engineering',
       avatar: '/placeholder.svg?height=160&width=160',
-      isManager: true,
+      is_manager: true,
     },
     description:
       '웹 및 모바일 서비스 개발을 담당하며, 최신 기술 스택을 활용하여 혁신적인 제품을 만들어갑니다. 사용자 중심의 개발 문화를 지향합니다.',
     color: 'bg-blue-500',
-    createdAt: '2022-03-15',
+    created_at: '2022-03-15',
     location: '본사 3층 A구역',
     email: 'dev-team@company.com',
-    coverImage:
+    cover_image:
       'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F5612288%2Fpexels-photo-5612288.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26h%3D627%26fit%3Dcrop%26w%3D1200&type=sc960_832',
     members: [
       {
@@ -36,35 +36,35 @@ const departmentData: Record<string, DepartmentDetail> = {
         name: '김지훈',
         position: '팀장',
         avatar: '/placeholder.svg?height=100&width=100',
-        isManager: true,
+        is_manager: true,
       },
       {
         id: 2,
         name: '이민수',
         position: 'Frontend 개발자',
         avatar: '/placeholder.svg?height=100&width=100',
-        isManager: false,
+        is_manager: false,
       },
       {
         id: 3,
         name: '박서연',
         position: 'Backend 개발자',
         avatar: '/placeholder.svg?height=100&width=100',
-        isManager: false,
+        is_manager: false,
       },
       {
         id: 4,
         name: '최지우',
         position: 'Full-stack 개발자',
         avatar: '/placeholder.svg?height=100&width=100',
-        isManager: false,
+        is_manager: false,
       },
       {
         id: 5,
         name: '정다은',
         position: 'DevOps 엔지니어',
         avatar: '/placeholder.svg?height=100&width=100',
-        isManager: false,
+        is_manager: false,
       },
     ],
     projects: [
@@ -73,7 +73,7 @@ const departmentData: Record<string, DepartmentDetail> = {
         name: 'E-commerce Platform 개발',
         progress: 75,
         status: 'In Progress',
-        dueDate: '2024-03-30',
+        due_date: '2024-03-30',
         description: '차세대 쇼핑 플랫폼 구축 프로젝트',
       },
       {
@@ -81,7 +81,7 @@ const departmentData: Record<string, DepartmentDetail> = {
         name: '모바일 앱 리뉴얼',
         progress: 45,
         status: 'In Progress',
-        dueDate: '2024-04-15',
+        due_date: '2024-04-15',
         description: '사용자 경험 개선을 위한 전면 리뉴얼',
       },
       {
@@ -89,7 +89,7 @@ const departmentData: Record<string, DepartmentDetail> = {
         name: 'API 서버 최적화',
         progress: 90,
         status: 'Review',
-        dueDate: '2024-02-28',
+        due_date: '2024-02-28',
         description: '서버 성능 향상 및 안정성 개선',
       },
     ],
@@ -102,15 +102,15 @@ const departmentData: Record<string, DepartmentDetail> = {
       name: '이수진',
       position: 'Head of Design',
       avatar: '/placeholder.svg?height=160&width=160',
-      isManager: true,
+      is_manager: true,
     },
     description:
       'UI/UX 및 브랜드 디자인을 총괄하며, 사용자에게 최고의 경험을 제공하기 위해 노력합니다.',
     color: 'bg-pink-500',
-    createdAt: '2022-06-10',
+    created_at: '2022-06-10',
     location: '본사 4층 B구역',
     email: 'design-team@company.com',
-    coverImage:
+    cover_image:
       'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F5612288%2Fpexels-photo-5612288.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26h%3D627%26fit%3Dcrop%26w%3D1200&type=sc960_832',
     members: [
       {
@@ -118,28 +118,28 @@ const departmentData: Record<string, DepartmentDetail> = {
         name: '이수진',
         position: '팀장',
         avatar: '/placeholder.svg?height=100&width=100',
-        isManager: true,
+        is_manager: true,
       },
       {
         id: 2,
         name: '김예린',
         position: 'UI/UX 디자이너',
         avatar: '/placeholder.svg?height=100&width=100',
-        isManager: false,
+        is_manager: false,
       },
       {
         id: 3,
         name: '박준형',
         position: '그래픽 디자이너',
         avatar: '/placeholder.svg?height=100&width=100',
-        isManager: false,
+        is_manager: false,
       },
       {
         id: 4,
         name: '최유나',
         position: '프로덕트 디자이너',
         avatar: '/placeholder.svg?height=100&width=100',
-        isManager: false,
+        is_manager: false,
       },
     ],
     projects: [
@@ -148,7 +148,7 @@ const departmentData: Record<string, DepartmentDetail> = {
         name: '브랜드 리디자인',
         progress: 65,
         status: 'In Progress',
-        dueDate: '2024-03-25',
+        due_date: '2024-03-25',
         description: '브랜드 아이덴티티 새단장',
       },
       {
@@ -156,7 +156,7 @@ const departmentData: Record<string, DepartmentDetail> = {
         name: '디자인 시스템 구축',
         progress: 80,
         status: 'On Track',
-        dueDate: '2024-02-28',
+        due_date: '2024-02-28',
         description: '일관된 디자인 언어 정립',
       },
       {
@@ -164,7 +164,7 @@ const departmentData: Record<string, DepartmentDetail> = {
         name: '모바일 UI 개선',
         progress: 50,
         status: 'In Progress',
-        dueDate: '2024-04-10',
+        due_date: '2024-04-10',
         description: '모바일 사용성 향상',
       },
     ],
@@ -184,7 +184,7 @@ export default function DepartmentDetailPage() {
       <header className="relative h-64 bg-gradient-to-r from-primary/20 to-accent/20 overflow-hidden group">
         <Image
           src={
-            dept.coverImage ||
+            dept.cover_image ||
             'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F5612288%2Fpexels-photo-5612288.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26h%3D627%26fit%3Dcrop%26w%3D1200&type=sc960_832'
           }
           fill
@@ -259,7 +259,7 @@ export default function DepartmentDetailPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-muted/20 p-6 rounded-2xl border">
             <InfoItem label="이메일" value={dept.email} />
             <InfoItem label="위치" value={dept.location} />
-            <InfoItem label="설립일" value={dept.createdAt} />
+            <InfoItem label="설립일" value={dept.created_at} />
             <InfoItem
               label="팀원 수"
               value={`${dept?.members?.length ?? 0}명`}
@@ -313,7 +313,7 @@ export default function DepartmentDetailPage() {
                       </p>
                     </div>
                     <span className="text-xs text-muted-foreground ml-4">
-                      마감: {project.dueDate}
+                      마감: {project.due_date}
                     </span>
                   </div>
                   <div className="space-y-2">

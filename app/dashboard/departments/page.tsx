@@ -15,9 +15,9 @@ const departments: Department[] = [
     id: 1,
     name: '개발팀',
     manager: '김지훈',
-    memberCount: 12,
-    projectCount: 5,
-    createdAt: '2022-03-15',
+    member_count: 12,
+    project_count: 5,
+    created_at: '2022-03-15',
     description: '웹 및 모바일 서비스 개발을 담당합니다.',
     color: 'bg-blue-500',
   },
@@ -25,9 +25,9 @@ const departments: Department[] = [
     id: 2,
     name: '디자인팀',
     manager: '이수진',
-    memberCount: 8,
-    projectCount: 3,
-    createdAt: '2022-06-10',
+    member_count: 8,
+    project_count: 3,
+    created_at: '2022-06-10',
     description: 'UI/UX 및 브랜드 디자인을 총괄합니다.',
     color: 'bg-pink-500',
   },
@@ -35,9 +35,9 @@ const departments: Department[] = [
     id: 3,
     name: '마케팅팀',
     manager: '박민수',
-    memberCount: 15,
-    projectCount: 6,
-    createdAt: '2021-11-22',
+    member_count: 15,
+    project_count: 6,
+    created_at: '2021-11-22',
     description: '제품 홍보 및 시장 분석을 담당합니다.',
     color: 'bg-green-500',
   },
@@ -45,9 +45,9 @@ const departments: Department[] = [
     id: 4,
     name: '인사팀',
     manager: '정현우',
-    memberCount: 6,
-    projectCount: 2,
-    createdAt: '2023-01-05',
+    member_count: 6,
+    project_count: 2,
+    created_at: '2023-01-05',
     description: '인사관리 및 복지를 담당합니다.',
     color: 'bg-orange-500',
   },
@@ -77,20 +77,20 @@ export default function DepartmentsPage() {
           <Card className="p-6 text-center">
             <p className="text-gray-500 text-sm">총 팀원 수</p>
             <p className="text-3xl font-semibold">
-              {departments.reduce((sum, d) => sum + d.memberCount, 0)}
+              {departments.reduce((sum, d) => sum + d.member_count, 0)}
             </p>
           </Card>
           <Card className="p-6 text-center">
             <p className="text-gray-500 text-sm">총 프로젝트</p>
             <p className="text-3xl font-semibold">
-              {departments.reduce((sum, d) => sum + d.projectCount, 0)}
+              {departments.reduce((sum, d) => sum + d.project_count, 0)}
             </p>
           </Card>
           <Card className="p-6 text-center">
             <p className="text-gray-500 text-sm">평균 인원</p>
             <p className="text-3xl font-semibold">
               {(
-                departments.reduce((sum, d) => sum + d.memberCount, 0) /
+                departments.reduce((sum, d) => sum + d.member_count, 0) /
                 departments.length
               ).toFixed(1)}
             </p>
@@ -132,7 +132,7 @@ export default function DepartmentsPage() {
                     <Users className="w-4 h-4" /> 팀원
                   </span>
                   <span className="font-medium text-gray-800">
-                    {dept.memberCount}명
+                    {dept.member_count}명
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
@@ -140,14 +140,14 @@ export default function DepartmentsPage() {
                     <FolderKanban className="w-4 h-4" /> 프로젝트
                   </span>
                   <span className="font-medium text-gray-800">
-                    {dept.projectCount}개
+                    {dept.project_count}개
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="flex items-center gap-1">
                     <CalendarDays className="w-4 h-4" /> 생성일
                   </span>
-                  <span>{dept.createdAt}</span>
+                  <span>{dept.created_at}</span>
                 </div>
               </div>
 
