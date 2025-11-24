@@ -6,6 +6,7 @@ export type Employee = {
   email: string;
   avatar?: string;
   status?: string;
+  isManager?: boolean;
 };
 
 export type EmployeeDetail = Employee & {
@@ -15,5 +16,4 @@ export type EmployeeDetail = Employee & {
   skill?: string[];
   coverImage?: string;
   workType?: string; // '정규직', '계약직' 등
-  isManager?: boolean;
 };
