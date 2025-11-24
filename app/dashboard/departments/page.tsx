@@ -7,17 +7,8 @@ import { cn } from '@/lib/utils';
 import { AddDepartmentModal } from '@/app/components/modal/AddDepartmentModal';
 import { useState } from 'react';
 import { MoreMenu } from '@/components/ui/more-menu';
-
-type Department = {
-  id: number;
-  name: string;
-  manager: string;
-  memberCount: number;
-  projectCount: number;
-  createdAt: string;
-  description: string;
-  color: string;
-};
+import { useRouter } from 'next/navigation';
+import { Department } from '@/types/department';
 
 const departments: Department[] = [
   {
@@ -63,6 +54,7 @@ const departments: Department[] = [
 ];
 
 export default function DepartmentsPage() {
+  const router = useRouter();
   const [isAddModalOpen, setAddModalOpen] = useState(false);
 
   return (
@@ -165,7 +157,8 @@ export default function DepartmentsPage() {
                   actions={[
                     {
                       label: '상세보기',
-                      onClick: () => console.log('view', dept.id),
+                      onClick: () =>
+                        router.push(`/dashboard/departments/${dept.id}`),
                     },
                     {
                       label: '수정',
