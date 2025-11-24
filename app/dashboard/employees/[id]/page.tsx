@@ -1,19 +1,11 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import InfoItem from '@/components/ui/info-item';
 import { EmployeeDetail } from '@/types/employee';
 import { ChevronLeft, MoreVertical } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-
-function InfoItem({ label, value }: { label: string; value?: string }) {
-  return (
-    <div>
-      <p className="text-sm text-muted-foreground">{label}</p>
-      <p className="font-medium">{value || '-'}</p>
-    </div>
-  );
-}
 
 const Member: EmployeeDetail = {
   id: 1,
