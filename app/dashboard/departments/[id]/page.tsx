@@ -16,84 +16,13 @@ const departmentData: Record<string, DepartmentDetail> = {
   '1': {
     id: 1,
     name: '개발팀',
-    manager: {
-      name: '김지훈',
-      position: 'Head of Engineering',
-      avatar: '/placeholder.svg?height=160&width=160',
-      is_manager: true,
-    },
-    description:
-      '웹 및 모바일 서비스 개발을 담당하며, 최신 기술 스택을 활용하여 혁신적인 제품을 만들어갑니다. 사용자 중심의 개발 문화를 지향합니다.',
     color: 'bg-blue-500',
     created_at: '2022-03-15',
-    location: '본사 3층 A구역',
-    email: 'dev-team@company.com',
     cover_image:
       'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F5612288%2Fpexels-photo-5612288.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26h%3D627%26fit%3Dcrop%26w%3D1200&type=sc960_832',
-    members: [
-      {
-        id: 1,
-        name: '김지훈',
-        position: '팀장',
-        avatar: '/placeholder.svg?height=100&width=100',
-        is_manager: true,
-      },
-      {
-        id: 2,
-        name: '이민수',
-        position: 'Frontend 개발자',
-        avatar: '/placeholder.svg?height=100&width=100',
-        is_manager: false,
-      },
-      {
-        id: 3,
-        name: '박서연',
-        position: 'Backend 개발자',
-        avatar: '/placeholder.svg?height=100&width=100',
-        is_manager: false,
-      },
-      {
-        id: 4,
-        name: '최지우',
-        position: 'Full-stack 개발자',
-        avatar: '/placeholder.svg?height=100&width=100',
-        is_manager: false,
-      },
-      {
-        id: 5,
-        name: '정다은',
-        position: 'DevOps 엔지니어',
-        avatar: '/placeholder.svg?height=100&width=100',
-        is_manager: false,
-      },
-    ],
-    projects: [
-      {
-        id: 1,
-        name: 'E-commerce Platform 개발',
-        progress: 75,
-        status: 'In Progress',
-        due_date: '2024-03-30',
-        description: '차세대 쇼핑 플랫폼 구축 프로젝트',
-      },
-      {
-        id: 2,
-        name: '모바일 앱 리뉴얼',
-        progress: 45,
-        status: 'In Progress',
-        due_date: '2024-04-15',
-        description: '사용자 경험 개선을 위한 전면 리뉴얼',
-      },
-      {
-        id: 3,
-        name: 'API 서버 최적화',
-        progress: 90,
-        status: 'Review',
-        due_date: '2024-02-28',
-        description: '서버 성능 향상 및 안정성 개선',
-      },
-    ],
-    tags: ['React', 'Next.js', 'Node.js', 'TypeScript', 'AWS'],
+    members: [],
+    projects: [],
+    tags: [],
   },
   '2': {
     id: 2,
@@ -226,9 +155,11 @@ export default function DepartmentDetailPage() {
             </div>
             <div className="pt-2">
               <h1 className="text-4xl font-bold mb-1">{dept.name}</h1>
-              <p className="text-sm text-muted-foreground">
-                {dept.manager.name} · {dept.manager.position}
-              </p>
+              {dept.manager && (
+                <p className="text-sm text-muted-foreground">
+                  {dept.manager.name} · {dept.manager.position}
+                </p>
+              )}
             </div>
           </div>
 
@@ -272,7 +203,7 @@ export default function DepartmentDetailPage() {
           <h2 className="text-xl font-semibold mb-4">부서 소개</h2>
           <div className="bg-muted/20 p-6 rounded-2xl border">
             <p className="text-muted-foreground leading-relaxed">
-              {dept.description}
+              {dept.description || '아직 부서 설명이 없습니다'}
             </p>
           </div>
         </div>

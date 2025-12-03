@@ -14,11 +14,10 @@ const departments: Department[] = [
   {
     id: 1,
     name: '개발팀',
-    manager: '김지훈',
-    member_count: 12,
-    project_count: 5,
+    member_count: 0,
+    project_count: 0,
     created_at: '2022-03-15',
-    description: '웹 및 모바일 서비스 개발을 담당합니다.',
+    description: '',
     color: 'bg-blue-500',
   },
   {
@@ -116,13 +115,15 @@ export default function DepartmentsPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold">{dept.name}</h3>
-                  <p className="text-sm text-gray-500">팀장 {dept.manager}</p>
+                  {dept.manager && (
+                    <p className="text-sm text-gray-500">팀장 {dept.manager}</p>
+                  )}
                 </div>
               </div>
 
               {/* 부서 설명 */}
               <p className="text-sm text-gray-600 mb-4 line-clamp-2">
-                {dept.description}
+                {dept.description || '아직 부서 설명이 없습니다'}
               </p>
 
               {/* 부서 상태 */}

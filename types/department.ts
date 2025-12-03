@@ -24,11 +24,11 @@ export type DepartmentProject = {
 export type Department = {
   id: number;
   name: string;
-  manager: string; // 관리자 이름만
+  manager?: string; // 관리자 이름만
   member_count: number;
   project_count: number;
   created_at: string;
-  description: string;
+  description?: string;
   color: string;
 };
 
@@ -36,7 +36,7 @@ export type DepartmentDetail = Omit<
   Department,
   'manager' | 'member_count' | 'project_count'
 > & {
-  manager: DepartmentManager;
+  manager?: DepartmentManager;
   location?: string;
   email?: string;
   cover_image?: string;
