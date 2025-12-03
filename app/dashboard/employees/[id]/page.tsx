@@ -16,6 +16,8 @@ const Member: EmployeeDetail = {
   phone: '+82 10-3894-9395',
   join_date: '2023-03-15',
   location: '서울',
+  is_manager: true,
+  work_type: '정규직',
   skill: ['JavaScript', 'React', 'Next.js', 'TypeScript'],
   avatar:
     'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F5612288%2Fpexels-photo-5612288.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26h%3D627%26fit%3Dcrop%26w%3D1200&type=sc960_832',
@@ -109,8 +111,11 @@ export default function EmployeeDetailpage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-muted/20 p-6 rounded-2xl border">
             <InfoItem label="직책" value={Member.position} />
             <InfoItem label="부서" value={Member.department} />
-            <InfoItem label="근무 형태" value="정규직" />
-            <InfoItem label="관리자 여부" value="X" />
+            <InfoItem label="근무 형태" value={Member.work_type} />
+            <InfoItem
+              label="관리자 여부"
+              value={Member.is_manager == true ? 'O' : 'X'}
+            />
           </div>
         </div>
 
