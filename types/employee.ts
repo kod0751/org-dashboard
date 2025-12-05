@@ -1,8 +1,8 @@
 export type Employee = {
   id: number;
   name: string;
-  position: string;
-  department: string;
+  position?: string;
+  department?: string;
   email: string;
   avatar?: string;
   status?: string;
@@ -11,9 +11,10 @@ export type Employee = {
 
 export type EmployeeDetail = Employee & {
   phone?: string;
-  join_date?: string;
+  created_at?: string;
   location?: string;
   skill?: string[];
   cover_image?: string;
   work_type?: string; // '정규직', '계약직' 등
+  project?: [];
 };
