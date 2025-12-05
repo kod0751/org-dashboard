@@ -11,14 +11,9 @@ const Member: EmployeeDetail = {
   id: 1,
   name: '김지훈',
   email: 'jihoon@example.com',
-  position: 'Frontend Engineer',
-  department: '개발팀',
   phone: '+82 10-3894-9395',
-  join_date: '2023-03-15',
-  location: '서울',
-  is_manager: true,
-  work_type: '정규직',
-  skill: ['JavaScript', 'React', 'Next.js', 'TypeScript'],
+  created_at: '2023-03-15',
+  skill: [],
   avatar:
     'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F5612288%2Fpexels-photo-5612288.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26h%3D627%26fit%3Dcrop%26w%3D1200&type=sc960_832',
   cover_image:
@@ -101,7 +96,7 @@ export default function EmployeeDetailpage() {
             <InfoItem label="이메일" value={Member.email} />
             <InfoItem label="전화번호" value={Member.phone} />
             <InfoItem label="위치" value={Member.location} />
-            <InfoItem label="입사일" value={Member.join_date} />
+            <InfoItem label="입사일" value={Member.created_at} />
           </div>
         </div>
 
@@ -135,22 +130,6 @@ export default function EmployeeDetailpage() {
             ) : (
               <p className="text-muted-foreground">등록된 스킬이 없습니다.</p>
             )}
-          </div>
-        </div>
-
-        {/* 활동 / 프로젝트 */}
-        <div>
-          <h2 className="text-xl font-semibold mb-4">참여 중인 프로젝트</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {[1, 2].map((i) => (
-              <div
-                key={i}
-                className="border rounded-xl p-4 hover:bg-muted/30 transition-colors cursor-pointer"
-              >
-                <h3 className="font-medium">Design Platform TF</h3>
-                <p className="text-sm text-muted-foreground">프론트엔드 담당</p>
-              </div>
-            ))}
           </div>
         </div>
       </section>
