@@ -106,27 +106,6 @@ export function AddDepartmentModal({
               )}
             </div>
 
-            {/* 팀장 */}
-            <div className="space-y-2">
-              <Label htmlFor="manager" className="text-sm font-semibold">
-                팀장 <span className="text-destructive">*</span>
-              </Label>
-              <Input
-                id="manager"
-                placeholder="팀장의 이름을 입력하세요"
-                {...register('manager', {
-                  required: '팀장을 입력해주세요',
-                })}
-                disabled={isSubmitting}
-                className="h-10 border-border/50 focus:border-primary"
-              />
-              {errors.manager && (
-                <p className="text-sm text-destructive">
-                  {errors.manager.message}
-                </p>
-              )}
-            </div>
-
             {/* 설명 */}
             <div className="space-y-2">
               <Label htmlFor="description" className="text-sm font-semibold">
@@ -162,7 +141,7 @@ export function AddDepartmentModal({
                     >
                       <SelectValue placeholder="색상 선택" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="font-['NanumSquareNeo']">
                       <SelectItem value="bg-blue-500">파랑</SelectItem>
                       <SelectItem value="bg-pink-500">핑크</SelectItem>
                       <SelectItem value="bg-green-500">초록</SelectItem>
