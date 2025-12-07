@@ -156,44 +156,6 @@ export function AddMemberModal({ open, onOpenChange }: AddMemberModalProps) {
                   </p>
                 )}
               </div>
-
-              {/* 부서 선택 */}
-              <div className="space-y-2">
-                <Label htmlFor="department" className="text-sm font-semibold">
-                  부서 <span className="text-destructive">*</span>
-                </Label>
-                <Controller
-                  name="department"
-                  control={control}
-                  rules={{ required: '부서를 선택해주세요' }}
-                  render={({ field }) => (
-                    <Select
-                      value={field.value}
-                      onValueChange={field.onChange}
-                      disabled={isSubmitting}
-                    >
-                      <SelectTrigger
-                        id="department"
-                        className="h-10 border-border/50 focus:border-primary"
-                      >
-                        <SelectValue placeholder="부서 선택" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="dev">개발팀</SelectItem>
-                        <SelectItem value="design">디자인팀</SelectItem>
-                        <SelectItem value="sales">영업팀</SelectItem>
-                        <SelectItem value="hr">인사팀</SelectItem>
-                        <SelectItem value="marketing">마케팅팀</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  )}
-                />
-                {errors.department && (
-                  <p className="text-sm text-destructive">
-                    {errors.department.message}
-                  </p>
-                )}
-              </div>
             </div>
           </div>
 
