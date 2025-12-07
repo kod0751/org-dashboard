@@ -1,11 +1,13 @@
 'use client';
 
+import { CoverImgModal } from '@/app/components/modal/CoverImgModal';
 import { Button } from '@/components/ui/button';
 import InfoItem from '@/components/ui/info-item';
 import { EmployeeDetail } from '@/types/employee';
 import { ChevronLeft, MoreVertical } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 const Member: EmployeeDetail = {
   id: 1,
@@ -16,22 +18,25 @@ const Member: EmployeeDetail = {
   skill: [],
   avatar:
     'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F5612288%2Fpexels-photo-5612288.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26h%3D627%26fit%3Dcrop%26w%3D1200&type=sc960_832',
-  cover_image:
-    'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F5612288%2Fpexels-photo-5612288.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26h%3D627%26fit%3Dcrop%26w%3D1200&type=sc960_832',
 };
+
+const coverImages = [
+  'https://images.pexels.com/photos/34505016/pexels-photo-34505016.jpeg',
+  'https://images.pexels.com/photos/33039121/pexels-photo-33039121.jpeg',
+  'https://images.pexels.com/photos/2325447/pexels-photo-2325447.jpeg',
+  'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F5612288%2Fpexels-photo-5612288.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26h%3D627%26fit%3Dcrop%26w%3D1200&type=sc960_832',
+];
 
 export default function EmployeeDetailpage() {
   const router = useRouter();
+  const [coverImage, setCoverImage] = useState(coverImages[0]);
 
   return (
     <main className="flex-1 font-['NanumSquareNeo'] shadow-xl">
       {/* 커버 이미지 영역 */}
       <header className="relative h-64 bg-gradient-to-r from-primary/20 to-accent/20 overflow-hidden group">
         <Image
-          src={
-            Member.cover_image ||
-            'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F5612288%2Fpexels-photo-5612288.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26h%3D627%26fit%3Dcrop%26w%3D1200&type=sc960_832'
-          }
+          src={coverImage}
           fill
           priority
           alt={`${Member.name}님의 커버 이미지`}
@@ -48,9 +53,11 @@ export default function EmployeeDetailpage() {
             <ChevronLeft className="w-6 h-6" />
           </button>
 
-          <button className="text-white hover:bg-black/20 p-2 rounded-full transition-colors">
-            <MoreVertical className="w-5 h-5" />
-          </button>
+          <CoverImgModal
+            images={coverImages}
+            currentImage={coverImage}
+            onImageChange={setCoverImage}
+          />
         </div>
       </header>
 

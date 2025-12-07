@@ -14,7 +14,6 @@ export type EmployeeDetail = Employee & {
   created_at?: string;
   location?: string;
   skill?: string[];
-  cover_image?: string;
   work_type?: string; // '정규직', '계약직' 등
   project?: [];
 };

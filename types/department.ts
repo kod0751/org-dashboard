@@ -39,7 +39,6 @@ export type DepartmentDetail = Omit<
   manager?: DepartmentManager;
   location?: string;
   email?: string;
-  cover_image?: string;
   members?: DepartmentMember[];
   projects?: DepartmentProject[];
   tags?: string[];
