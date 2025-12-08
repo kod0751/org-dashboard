@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import InfoItem from '@/components/ui/info-item';
 import { DepartmentDetail } from '@/types/department';
-import { CoverImgModal } from '@/app/components/modal/CoverImgModal';
+import { CoverImgModal } from '@/components/modal/CoverImgModal';
 
 const departmentData: Record<string, DepartmentDetail> = {
   '1': {

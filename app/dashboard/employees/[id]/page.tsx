@@ -1,6 +1,6 @@
 'use client';
 
-import { CoverImgModal } from '@/app/components/modal/CoverImgModal';
+import { CoverImgModal } from '@/components/modal/CoverImgModal';
 import { Button } from '@/components/ui/button';
 import InfoItem from '@/components/ui/info-item';
 import { EmployeeDetail } from '@/types/employee';

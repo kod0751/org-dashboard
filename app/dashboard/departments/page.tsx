@@ -4,7 +4,7 @@ import { Card } from '@/components/ui/card';
 import { Users, FolderKanban, CalendarDays } from 'lucide-react';
 import { DashboardHeader } from '@/app/components/layout/header';
 import { cn } from '@/lib/utils';
-import { AddDepartmentModal } from '@/app/components/modal/AddDepartmentModal';
+import { AddDepartmentModal } from '@/components/modal/AddDepartmentModal';
 import { useState } from 'react';
 import { MoreMenu } from '@/components/ui/more-menu';
 import { useRouter } from 'next/navigation';
@@ -17,7 +17,6 @@ const departments: Department[] = [
     member_count: 0,
     project_count: 0,
     created_at: '2022-03-15',
-    description: '',
     color: 'bg-blue-500',
   },
   {

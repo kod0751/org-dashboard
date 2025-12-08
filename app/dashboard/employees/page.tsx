@@ -1,7 +1,7 @@
 'use client';
 
 import { DashboardHeader } from '@/app/components/layout/header';
-import { AddMemberModal } from '@/app/components/modal/AddMemberModal';
+import { AddMemberModal } from '@/components/modal/AddMemberModal';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Card } from '@/components/ui/card';
 import { MoreMenu } from '@/components/ui/more-menu';
