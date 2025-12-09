@@ -1,7 +1,7 @@
-import StateCard from '../components/dashboard/state-card';
-import { DepartmentChart } from '../components/charts/pie-chart';
-import RecentEmployees from '../components/dashboard/recent-employees';
-import { DashboardHeader } from '../components/layout/header';
+import StateCard from '@/components/dashboard/state-card';
+import RecentEmployees from '@/components/dashboard/recent-employees';
+import { DepartmentChart } from '../../components/charts/pie-chart';
+import { DashboardHeader } from '../../components/layout/header';
 
 export default function DashboardPage() {
   return (

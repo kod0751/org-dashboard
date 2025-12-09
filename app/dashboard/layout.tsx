@@ -1,4 +1,4 @@
-import { Sidebar } from '../components/layout/sidebar';
+import { Sidebar } from '../../components/layout/sidebar';
 import { createClient } from '@/lib/supabase/server';
 
 export default async function DashboardLayout({

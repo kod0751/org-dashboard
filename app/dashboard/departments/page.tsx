@@ -2,7 +2,7 @@
 
 import { Card } from '@/components/ui/card';
 import { Users, FolderKanban, CalendarDays } from 'lucide-react';
-import { DashboardHeader } from '@/app/components/layout/header';
+import { DashboardHeader } from '@/components/layout/header';
 import { cn } from '@/lib/utils';
 import { AddDepartmentModal } from '@/components/modal/AddDepartmentModal';
 import { useState } from 'react';
