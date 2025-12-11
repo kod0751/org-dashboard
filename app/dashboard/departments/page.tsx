@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { MoreMenu } from '@/components/ui/more-menu';
 import { useRouter } from 'next/navigation';
 import { Department } from '@/types/department';
+import { useDepartments } from '@/feature/departments/model/useDepartments';
 
 const departments: Department[] = [
   {
@@ -53,7 +54,16 @@ const departments: Department[] = [
 
 export default function DepartmentsPage() {
   const router = useRouter();
+  const { data = [], isLoading, isError } = useDepartments();
   const [isAddModalOpen, setAddModalOpen] = useState(false);
+
+  if (isLoading) {
+    return <div className="p-6">불러오는 중...</div>;
+  }
+
+  if (isError) {
+    return <div className="p-6 text-red-500">데이터 로드 실패</div>;
+  }
 
   return (
     <div className="bg-white min-h-full shadow-xl">
@@ -70,26 +80,25 @@ export default function DepartmentsPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           <Card className="p-6 text-center">
             <p className="text-gray-500 text-sm">총 부서</p>
-            <p className="text-3xl font-semibold">{departments.length}</p>
+            <p className="text-3xl font-semibold">{data.length}</p>
           </Card>
           <Card className="p-6 text-center">
             <p className="text-gray-500 text-sm">총 팀원 수</p>
             <p className="text-3xl font-semibold">
-              {departments.reduce((sum, d) => sum + d.member_count, 0)}
+              {data.reduce((sum, d) => sum + d.member_count, 0)}
             </p>
           </Card>
           <Card className="p-6 text-center">
             <p className="text-gray-500 text-sm">총 프로젝트</p>
             <p className="text-3xl font-semibold">
-              {departments.reduce((sum, d) => sum + d.project_count, 0)}
+              {data.reduce((sum, d) => sum + d.project_count, 0)}
             </p>
           </Card>
           <Card className="p-6 text-center">
             <p className="text-gray-500 text-sm">평균 인원</p>
             <p className="text-3xl font-semibold">
               {(
-                departments.reduce((sum, d) => sum + d.member_count, 0) /
-                departments.length
+                data.reduce((sum, d) => sum + d.member_count, 0) / data.length
               ).toFixed(1)}
             </p>
           </Card>
@@ -97,7 +106,7 @@ export default function DepartmentsPage() {
 
         {/* Department Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {departments.map((dept) => (
+          {data.map((dept) => (
             <Card
               key={dept.id}
               className="relative p-6 hover:shadow-lg transition-all border border-gray-200 bg-white group"
@@ -147,7 +156,7 @@ export default function DepartmentsPage() {
                   <span className="flex items-center gap-1">
                     <CalendarDays className="w-4 h-4" /> 생성일
                   </span>
-                  <span>{dept.created_at}</span>
+                  <span>{dept.created_at.split('T')[0]}</span>
                 </div>
               </div>
 

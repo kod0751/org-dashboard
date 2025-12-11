@@ -20,6 +20,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Building2 } from 'lucide-react';
+import { useCreateDepartment } from '@/feature/departments/model/useDepartments';
 
 interface AddDepartmentModalProps {
   open: boolean;
@@ -28,7 +29,6 @@ interface AddDepartmentModalProps {
 
 interface DepartmentFormData {
   name: string;
-  manager: string;
   description: string;
   color: string;
 }
@@ -46,19 +46,25 @@ export function AddDepartmentModal({
   } = useForm<DepartmentFormData>({
     defaultValues: {
       name: '',
-      manager: '',
       description: '',
       color: '',
     },
   });
 
+  const createDepartment = useCreateDepartment();
+
   const onSubmit = async (data: DepartmentFormData) => {
     try {
-      console.log('부서 추가:', data);
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await createDepartment.mutateAsync({
+        name: data.name,
+        description: data.description || '',
+        color: data.color,
+      });
+      //TODO: 성공메시지 추가
       reset();
       onOpenChange(false);
     } catch (error) {
+      //TODO:토스트나 에러 메시지로 사용자에게 알림
       console.error('부서 추가 실패:', error);
     }
   };
@@ -171,17 +177,10 @@ export function AddDepartmentModal({
             </Button>
             <Button
               type="submit"
-              disabled={isSubmitting}
+              disabled={createDepartment.isPending}
               className="bg-ring/80 hover:bg-ring/90 text-white"
             >
-              {isSubmitting ? (
-                <span className="flex items-center gap-2">
-                  <span className="inline-block w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                  추가 중...
-                </span>
-              ) : (
-                '부서 추가'
-              )}
+              {createDepartment.isPending ? '추가 중...' : '부서 추가'}
             </Button>
           </DialogFooter>
         </form>
