@@ -1,18 +1,21 @@
-import { createClient } from '@/lib/supabase/client';
+'use server';
 
-const supabase = createClient();
+import { createClient } from '@/lib/supabase/server';
 
 export async function createDepartment(payload: {
   name: string;
   description?: string;
   color: string;
 }) {
+  const supabase = await createClient();
+
   const { data, error } = await supabase
     .from('departments')
     .insert(payload)
     .select()
     .single();
 
-  if (error) throw error;
+  if (error) throw new Error(error.message);
+
   return data;
 }
