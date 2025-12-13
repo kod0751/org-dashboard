@@ -13,3 +13,16 @@ export async function getDepartments() {
   if (error) throw error;
   return data;
 }
+
+export async function getDepartmentById(id: string) {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from('departments')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error) throw error;
+  return data;
+}
