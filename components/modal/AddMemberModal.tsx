@@ -1,6 +1,6 @@
 'use client';
 
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import {
   Dialog,
   DialogContent,
@@ -12,13 +12,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { UserPlus } from 'lucide-react';
 
 interface AddMemberModalProps {
@@ -37,7 +30,6 @@ export function AddMemberModal({ open, onOpenChange }: AddMemberModalProps) {
   const {
     register,
     handleSubmit,
-    control,
     reset,
     formState: { errors, isSubmitting },
   } = useForm<TeamMemberFormData>({

@@ -1,7 +1,7 @@
 'use client';
 
-import LoginForm from '@/app/components/login/login-form';
-import CardSignupForm from '@/app/components/login/signup-form';
+import LoginForm from '@/components/login/login-form';
+import CardSignupForm from '@/components/login/signup-form';
 import { useState } from 'react';
 
 export default function CardPage() {
