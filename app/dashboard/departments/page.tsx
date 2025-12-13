@@ -9,7 +9,10 @@ import { useState } from 'react';
 import { MoreMenu } from '@/components/ui/more-menu';
 import { useRouter } from 'next/navigation';
 import { Department } from '@/types/department';
-import { useDepartments } from '@/feature/departments/model/useDepartments';
+import {
+  useDeleteDepartment,
+  useDepartments,
+} from '@/feature/departments/model/useDepartments';
 
 const departments: Department[] = [
   {
@@ -54,6 +57,7 @@ const departments: Department[] = [
 
 export default function DepartmentsPage() {
   const router = useRouter();
+  const deleteMutation = useDeleteDepartment();
   const { data = [], isLoading, isError } = useDepartments();
   const [isAddModalOpen, setAddModalOpen] = useState(false);
 
@@ -176,7 +180,9 @@ export default function DepartmentsPage() {
                     {
                       label: '삭제',
                       danger: true,
-                      onClick: () => console.log('delete', dept.id),
+                      onClick: () => {
+                        deleteMutation.mutate(dept.id);
+                      },
                     },
                   ]}
                 />
