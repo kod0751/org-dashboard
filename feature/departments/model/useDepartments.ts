@@ -1,4 +1,7 @@
-import { createDepartment } from '@/shared/api/departments/mutations';
+import {
+  createDepartment,
+  deleteDepartment,
+} from '@/shared/api/departments/mutations';
 import { getDepartments } from '@/shared/api/departments/queries';
 import { Department } from '@/types/department';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -15,6 +18,17 @@ export function useCreateDepartment() {
 
   return useMutation({
     mutationFn: createDepartment,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['departments'] });
+    },
+  });
+}
+
+export function useDeleteDepartment() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteDepartment,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['departments'] });
     },
