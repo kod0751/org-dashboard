@@ -10,8 +10,13 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import InfoItem from '@/components/ui/info-item';
-import { DepartmentDetail } from '@/types/department';
+import {
+  DepartmentDetail,
+  DepartmentMember,
+  DepartmentProject,
+} from '@/types/department';
 import { CoverImgModal } from '@/components/modal/CoverImgModal';
+import { useDepartment } from '@/feature/departments/model/useDepartments';
 
 const departmentData: Record<string, DepartmentDetail> = {
   '1': {
@@ -106,11 +111,21 @@ const coverImages = [
 ];
 
 export default function DepartmentDetailPage() {
-  const params = useParams();
+  const params = useParams<{ id: string }>();
   const router = useRouter();
-  const dept = departmentData[params.id as string];
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [coverImage, setCoverImage] = useState(coverImages[0]);
+  const { data: dept, isLoading, isError } = useDepartment(params.id);
+
+  if (isLoading) {
+    //TODO:로딩화면
+    return <div className="p-6">부서 정보를 불러오는 중...</div>;
+  }
+
+  if (isError || !dept) {
+    //TODO:empty화면
+    return <div className="p-6 text-red-500">부서를 찾을 수 없습니다.</div>;
+  }
 
   return (
     <main className="flex-1 font-['NanumSquareNeo'] shadow-xl">
@@ -194,10 +209,10 @@ export default function DepartmentDetailPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-muted/20 p-6 rounded-2xl border">
             <InfoItem label="이메일" value={dept.email} />
             <InfoItem label="위치" value={dept.location} />
-            <InfoItem label="설립일" value={dept.created_at} />
+            <InfoItem label="설립일" value={dept.created_at.split('T')[0]} />
             <InfoItem
               label="팀원 수"
-              value={`${dept?.members?.length ?? 0}명`}
+              value={`${dept.members?.length ?? 0}명`}
             />
           </div>
         </div>
@@ -221,7 +236,7 @@ export default function DepartmentDetailPage() {
 
           <div className="space-y-4">
             {dept.projects && dept.projects.length > 0 ? (
-              dept.projects.map((project) => (
+              dept.projects.map((project: DepartmentProject) => (
                 <div
                   key={project.id}
                   className="bg-muted/20 p-6 rounded-2xl border hover:bg-muted/30 transition-colors"
@@ -277,7 +292,7 @@ export default function DepartmentDetailPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {dept.members && dept.members.length > 0 ? (
-              dept.members.map((member) => (
+              dept.members.map((member: DepartmentMember) => (
                 <div
                   key={member.id}
                   className="border rounded-xl p-4 hover:bg-muted/30 transition-colors cursor-pointer flex items-center gap-4"
