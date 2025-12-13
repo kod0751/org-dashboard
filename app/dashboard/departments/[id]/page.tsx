@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { MoreVertical, Users, Target, ChevronLeft } from 'lucide-react';
+import { Users, Target, ChevronLeft } from 'lucide-react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
@@ -17,6 +17,7 @@ import {
 } from '@/types/department';
 import { CoverImgModal } from '@/components/modal/CoverImgModal';
 import { useDepartment } from '@/feature/departments/model/useDepartments';
+import { MoreMenu } from '@/components/ui/more-menu';
 
 const departmentData: Record<string, DepartmentDetail> = {
   '1': {
@@ -191,13 +192,23 @@ export default function DepartmentDetailPage() {
               <Users className="w-4 h-4 mr-2" />
               팀원 관리
             </Button>
-            <Button
+            <MoreMenu
               variant="outline"
-              className="border-border hover:bg-muted px-4 bg-transparent"
-              onClick={() => setEditModalOpen(true)}
-            >
-              <MoreVertical className="w-4 h-4" />
-            </Button>
+              actions={[
+                {
+                  label: '부서 수정',
+                  onClick: () => setEditModalOpen(true),
+                },
+                {
+                  label: '부서 삭제',
+                  danger: true,
+                  onClick: () => {
+                    // TODO: 삭제 기능
+                    console.log('부서 삭제');
+                  },
+                },
+              ]}
+            />
           </div>
         </div>
       </div>

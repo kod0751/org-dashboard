@@ -8,6 +8,9 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu';
+import { cn } from '@/lib/utils';
+
+type MoreMenuVariant = 'ghost' | 'outline';
 
 type MenuAction = {
   label: string;
@@ -17,14 +20,20 @@ type MenuAction = {
 
 interface MoreMenuProps {
   actions: MenuAction[];
+  variant?: MoreMenuVariant;
 }
 
-export function MoreMenu({ actions }: MoreMenuProps) {
+export function MoreMenu({ actions, variant = 'ghost' }: MoreMenuProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button size="icon" variant="ghost" className="h-8 w-8">
-          <MoreVertical className="w-4 h-4 text-gray-600" />
+        <Button size="icon" variant={variant} className="h-9 w-9">
+          <MoreVertical
+            className={cn(
+              'w-4 h-4',
+              variant === 'ghost' ? 'text-gray-600' : 'text-muted-foreground'
+            )}
+          />
         </Button>
       </DropdownMenuTrigger>
 
