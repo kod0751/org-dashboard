@@ -18,6 +18,7 @@ import {
 import { CoverImgModal } from '@/components/modal/CoverImgModal';
 import { useDepartment } from '@/feature/departments/model/useDepartments';
 import { MoreMenu } from '@/components/ui/more-menu';
+import { EditDepartmentModal } from '@/components/modal/EditDepartmentModal';
 
 const departmentData: Record<string, DepartmentDetail> = {
   '1': {
@@ -356,6 +357,13 @@ export default function DepartmentDetailPage() {
             )}
           </div>
         </div>
+
+        {/* 부서 수정 모달 */}
+        <EditDepartmentModal
+          open={isEditModalOpen}
+          onOpenChange={setEditModalOpen}
+          department={dept}
+        />
       </section>
     </main>
   );
