@@ -1,6 +1,7 @@
 import {
   createDepartment,
   deleteDepartment,
+  updateDepartmentDetail,
 } from '@/shared/api/departments/mutations';
 import {
   getDepartmentById,
@@ -31,6 +32,23 @@ export function useCreateDepartment() {
     mutationFn: createDepartment,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['departments'] });
+    },
+  });
+}
+
+export function useUpdateDepartmentDetail() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateDepartmentDetail,
+    onSuccess: (data, variables) => {
+      // 목록 쿼리 무효화
+      queryClient.invalidateQueries({ queryKey: ['departments'] });
+
+      // 수정된 특정 부서의 상세 쿼리도 무효화
+      queryClient.invalidateQueries({
+        queryKey: ['department', variables.id.toString()],
+      });
     },
   });
 }
