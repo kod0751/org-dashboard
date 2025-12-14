@@ -72,7 +72,7 @@ export default function DepartmentsPage() {
   return (
     <div className="bg-white min-h-full shadow-xl">
       <div className="flex flex-col gap-12 p-12">
-        {/* Header */}
+        {/* 헤더 */}
         <DashboardHeader
           title="부서"
           searchPlaceholder="부서를 검색하세요"
@@ -172,10 +172,6 @@ export default function DepartmentsPage() {
                       label: '상세보기',
                       onClick: () =>
                         router.push(`/dashboard/departments/${dept.id}`),
-                    },
-                    {
-                      label: '수정',
-                      onClick: () => console.log('edit', dept.id),
                     },
                     {
                       label: '삭제',
