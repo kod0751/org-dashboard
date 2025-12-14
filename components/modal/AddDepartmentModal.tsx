@@ -53,20 +53,20 @@ export function AddDepartmentModal({
 
   const createDepartment = useCreateDepartment();
 
-  const onSubmit = async (data: DepartmentFormData) => {
-    try {
-      await createDepartment.mutateAsync({
+  const onSubmit = (data: DepartmentFormData) => {
+    createDepartment.mutate(
+      {
         name: data.name,
         description: data.description || '',
         color: data.color,
-      });
-      //TODO: 성공메시지 추가
-      reset();
-      onOpenChange(false);
-    } catch (error) {
-      //TODO:토스트나 에러 메시지로 사용자에게 알림
-      console.error('부서 추가 실패:', error);
-    }
+      },
+      {
+        onSuccess: () => {
+          reset();
+          onOpenChange(false);
+        },
+      }
+    );
   };
 
   const handleClose = () => {

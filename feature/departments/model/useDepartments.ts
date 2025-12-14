@@ -9,6 +9,7 @@ import {
 } from '@/shared/api/departments/queries';
 import { Department } from '@/types/department';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 export function useDepartments() {
   return useQuery<Department[]>({
@@ -32,6 +33,10 @@ export function useCreateDepartment() {
     mutationFn: createDepartment,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['departments'] });
+      toast.success('부서가 생성되었습니다.');
+    },
+    onError: () => {
+      toast.error('부서 생성에 실패했습니다.');
     },
   });
 }
