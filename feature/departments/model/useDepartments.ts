@@ -54,6 +54,10 @@ export function useUpdateDepartmentDetail() {
       queryClient.invalidateQueries({
         queryKey: ['department', variables.id.toString()],
       });
+      toast.success('부서 정보가 수정되었습니다.');
+    },
+    onError: () => {
+      toast.error('부서 정보 수정에 실패했습니다.');
     },
   });
 }
@@ -65,6 +69,10 @@ export function useDeleteDepartment() {
     mutationFn: deleteDepartment,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['departments'] });
+      toast.success('부서가 삭제되었습니다.');
+    },
+    onError: () => {
+      toast.error('부서 삭제에 실패했습니다.');
     },
   });
 }

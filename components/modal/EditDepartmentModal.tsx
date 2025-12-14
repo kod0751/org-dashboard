@@ -61,9 +61,9 @@ export function EditDepartmentModal({
 
   const updateDepartment = useUpdateDepartmentDetail();
 
-  const onSubmit = async (data: EditDepartmentFormData) => {
-    try {
-      await updateDepartment.mutateAsync({
+  const onSubmit = (data: EditDepartmentFormData) => {
+    updateDepartment.mutate(
+      {
         id: department.id,
         payload: {
           name: data.name,
@@ -76,14 +76,14 @@ export function EditDepartmentModal({
             .map((tag) => tag.trim())
             .filter(Boolean),
         },
-      });
-
-      // TODO: 성공 메시지
-      onOpenChange(false);
-    } catch (error) {
-      // TODO: 실패 메시지
-      console.error('부서 수정 실패:', error);
-    }
+      },
+      {
+        onSuccess: () => {
+          reset();
+          onOpenChange(false);
+        },
+      }
+    );
   };
 
   const handleClose = () => {
