@@ -1,10 +1,12 @@
 'use client';
 
+import { useForm, Controller } from 'react-hook-form';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogFooter,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -17,7 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useForm, Controller } from 'react-hook-form';
+import { useUpdateDepartmentDetail } from '@/feature/departments/model/useDepartments';
 import { DepartmentDetail } from '@/types/department';
 
 interface EditDepartmentModalProps {
@@ -42,9 +44,10 @@ export function EditDepartmentModal({
 }: EditDepartmentModalProps) {
   const {
     register,
-    control,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    control,
+    reset,
+    formState: { errors },
   } = useForm<EditDepartmentFormData>({
     defaultValues: {
       name: department.name,
@@ -56,105 +59,96 @@ export function EditDepartmentModal({
     },
   });
 
-  const onSubmit = async (data: EditDepartmentFormData) => {
-    const updatedData = {
-      ...data,
-      tags: data.tags
-        .split(',')
-        .map((tag) => tag.trim())
-        .filter((tag) => tag !== ''),
-    };
+  const updateDepartment = useUpdateDepartmentDetail();
 
-    // TODO: 부서 수정 API 호출
-    console.log('Updated department data:', updatedData);
+  const onSubmit = async (data: EditDepartmentFormData) => {
+    try {
+      await updateDepartment.mutateAsync({
+        id: department.id,
+        payload: {
+          name: data.name,
+          description: data.description || undefined,
+          location: data.location || undefined,
+          email: data.email || undefined,
+          color: data.color,
+          tags: data.tags
+            .split(',')
+            .map((tag) => tag.trim())
+            .filter(Boolean),
+        },
+      });
+
+      // TODO: 성공 메시지
+      onOpenChange(false);
+    } catch (error) {
+      // TODO: 실패 메시지
+      console.error('부서 수정 실패:', error);
+    }
+  };
+
+  const handleClose = () => {
+    reset();
     onOpenChange(false);
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto font-['NanumSquareNeo']">
         <DialogHeader>
           <DialogTitle>부서 정보 수정</DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 py-4">
+          {/* 부서명 */}
           <div className="space-y-2">
-            <Label htmlFor="name" className="text-sm font-medium">
-              부서명 <span className="text-destructive">*</span>
-            </Label>
+            <Label>부서명 *</Label>
             <Input
-              id="name"
-              placeholder="부서명을 입력하세요"
-              {...register('name', {
-                required: '부서명을 입력해주세요',
-              })}
-              disabled={isSubmitting}
+              {...register('name', { required: '부서명을 입력해주세요' })}
             />
             {errors.name && (
               <p className="text-sm text-destructive">{errors.name.message}</p>
             )}
           </div>
 
+          {/* 설명 */}
           <div className="space-y-2">
-            <Label htmlFor="description" className="text-sm font-medium">
-              부서 설명
-            </Label>
-            <Textarea
-              id="description"
-              placeholder="부서 설명을 입력하세요"
-              {...register('description')}
-              disabled={isSubmitting}
-            />
+            <Label>부서 설명</Label>
+            <Textarea {...register('description')} />
           </div>
 
+          {/* 위치 */}
           <div className="space-y-2">
-            <Label htmlFor="location" className="text-sm font-medium">
-              위치
-            </Label>
-            <Input
-              id="location"
-              placeholder="예: 본사 3층"
-              {...register('location')}
-              disabled={isSubmitting}
-            />
+            <Label>위치</Label>
+            <Input {...register('location')} />
           </div>
 
+          {/* 이메일 */}
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-sm font-medium">
-              이메일
-            </Label>
+            <Label>이메일</Label>
             <Input
-              id="email"
               type="email"
-              placeholder="department@company.com"
               {...register('email', {
                 pattern: {
                   value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                   message: '올바른 이메일 형식이 아닙니다',
                 },
               })}
-              disabled={isSubmitting}
             />
             {errors.email && (
               <p className="text-sm text-destructive">{errors.email.message}</p>
             )}
           </div>
 
+          {/* 색상 */}
           <div className="space-y-2">
-            <Label htmlFor="color" className="text-sm font-medium">
-              대표 색상 <span className="text-destructive">*</span>
-            </Label>
+            <Label>대표 색상 *</Label>
             <Controller
               name="color"
               control={control}
               rules={{ required: '색상을 선택해주세요' }}
               render={({ field }) => (
-                <Select
-                  value={field.value}
-                  onValueChange={field.onChange}
-                  disabled={isSubmitting}
-                >
-                  <SelectTrigger id="color">
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger>
                     <SelectValue placeholder="색상 선택" />
                   </SelectTrigger>
                   <SelectContent>
@@ -167,43 +161,26 @@ export function EditDepartmentModal({
                 </Select>
               )}
             />
-            {errors.color && (
-              <p className="text-sm text-destructive">{errors.color.message}</p>
-            )}
           </div>
 
+          {/* 태그 */}
           <div className="space-y-2">
-            <Label htmlFor="tags" className="text-sm font-medium">
-              스킬
-            </Label>
-            <Input
-              id="tags"
-              placeholder="태그1, 태그2, 태그3"
-              {...register('tags')}
-              disabled={isSubmitting}
-            />
-            <p className="text-xs text-gray-500">
-              쉼표(,)로 구분하여 입력하세요
-            </p>
+            <Label>스킬</Label>
+            <Input placeholder="태그1, 태그2" {...register('tags')} />
           </div>
 
-          <div className="flex justify-end gap-2 pt-4">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => onOpenChange(false)}
-              disabled={isSubmitting}
-            >
+          <DialogFooter className="gap-2 pt-2">
+            <Button type="button" variant="outline" onClick={handleClose}>
               취소
             </Button>
             <Button
               type="submit"
-              disabled={isSubmitting}
+              disabled={updateDepartment.isPending}
               className="bg-ring/80 hover:bg-ring/90 text-white"
             >
-              {isSubmitting ? '저장 중...' : '저장'}
+              {updateDepartment.isPending ? '저장 중...' : '저장'}
             </Button>
-          </div>
+          </DialogFooter>
         </form>
       </DialogContent>
     </Dialog>
