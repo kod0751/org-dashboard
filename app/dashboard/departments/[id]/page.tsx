@@ -16,7 +16,10 @@ import {
   DepartmentProject,
 } from '@/types/department';
 import { CoverImgModal } from '@/components/modal/CoverImgModal';
-import { useDepartment } from '@/feature/departments/model/useDepartments';
+import {
+  useDeleteDepartment,
+  useDepartment,
+} from '@/feature/departments/model/useDepartments';
 import { MoreMenu } from '@/components/ui/more-menu';
 import { EditDepartmentModal } from '@/components/modal/EditDepartmentModal';
 
@@ -115,6 +118,7 @@ const coverImages = [
 export default function DepartmentDetailPage() {
   const params = useParams<{ id: string }>();
   const router = useRouter();
+  const deleteMutation = useDeleteDepartment();
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [coverImage, setCoverImage] = useState(coverImages[0]);
   const { data: dept, isLoading, isError } = useDepartment(params.id);
@@ -204,8 +208,8 @@ export default function DepartmentDetailPage() {
                   label: '부서 삭제',
                   danger: true,
                   onClick: () => {
-                    // TODO: 삭제 기능
-                    console.log('부서 삭제');
+                    deleteMutation.mutate(dept.id);
+                    router.push('/dashboard/departments');
                   },
                 },
               ]}
