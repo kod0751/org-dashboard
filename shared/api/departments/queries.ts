@@ -14,7 +14,7 @@ export async function getDepartments() {
   return data;
 }
 
-export async function getDepartmentById(id: string) {
+export async function getDepartmentById(id: number) {
   const supabase = await createClient();
 
   const { data, error } = await supabase

@@ -18,7 +18,7 @@ export function useDepartments() {
   });
 }
 
-export function useDepartment(id: string) {
+export function useDepartment(id: number) {
   return useQuery({
     queryKey: ['department', id],
     queryFn: () => getDepartmentById(id),
@@ -52,7 +52,7 @@ export function useUpdateDepartmentDetail() {
 
       // 수정된 특정 부서의 상세 쿼리도 무효화
       queryClient.invalidateQueries({
-        queryKey: ['department', variables.id.toString()],
+        queryKey: ['department', variables.id],
       });
       toast.success('부서 정보가 수정되었습니다.');
     },
