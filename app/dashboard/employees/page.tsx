@@ -5,7 +5,7 @@ import { AddMemberModal } from '@/components/modal/AddMemberModal';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Card } from '@/components/ui/card';
 import { MoreMenu } from '@/components/ui/more-menu';
-import { Employee } from '@/types/employee';
+import { Employee } from '@/feature/employees/model/employee';
 import { ArrowUpDown, SlidersHorizontal } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';

@@ -3,7 +3,7 @@
 import { CoverImgModal } from '@/components/modal/CoverImgModal';
 import { Button } from '@/components/ui/button';
 import InfoItem from '@/components/ui/info-item';
-import { EmployeeDetail } from '@/types/employee';
+import { EmployeeDetail } from '@/feature/employees/model/employee';
 import { ChevronLeft, MoreVertical } from 'lucide-react';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';

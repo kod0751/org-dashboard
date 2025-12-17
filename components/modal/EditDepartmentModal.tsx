@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useUpdateDepartmentDetail } from '@/feature/departments/model/useDepartments';
-import { DepartmentDetail } from '@/types/department';
+import { DepartmentDetail } from '@/feature/departments/model/department';
 
 interface EditDepartmentModalProps {
   open: boolean;

@@ -1,5 +1,5 @@
-import { Employee } from './employee';
-import { Project } from './project';
+import { Employee } from '../../employees/model/employee';
+import { Project } from '../../projects/model/project';
 
 export type DepartmentManager = Pick<
   Employee,

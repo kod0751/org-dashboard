@@ -7,7 +7,7 @@ import {
   getDepartmentById,
   getDepartments,
 } from '@/shared/api/departments/queries';
-import { Department } from '@/types/department';
+import { Department } from '@/feature/departments/model/department';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 

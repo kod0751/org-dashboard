@@ -1,6 +1,6 @@
 import { createProject } from '@/shared/api/departments/projects/mutations';
 import { getProjectsByDepartment } from '@/shared/api/departments/projects/queries';
-import { Project } from '@/types/project';
+import { Project } from '@/feature/projects/model/project';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 

@@ -8,7 +8,7 @@ import { AddDepartmentModal } from '@/components/modal/AddDepartmentModal';
 import { useState } from 'react';
 import { MoreMenu } from '@/components/ui/more-menu';
 import { useRouter } from 'next/navigation';
-import { Department } from '@/types/department';
+import { Department } from '@/feature/departments/model/department';
 import {
   useDeleteDepartment,
   useDepartments,

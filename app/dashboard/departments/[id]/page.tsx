@@ -10,7 +10,10 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import InfoItem from '@/components/ui/info-item';
-import { DepartmentDetail, DepartmentMember } from '@/types/department';
+import {
+  DepartmentDetail,
+  DepartmentMember,
+} from '@/feature/departments/model/department';
 import { CoverImgModal } from '@/components/modal/CoverImgModal';
 import {
   useDeleteDepartment,

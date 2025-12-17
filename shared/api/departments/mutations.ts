@@ -1,7 +1,7 @@
 'use server';
 
 import { createClient } from '@/lib/supabase/server';
-import { DepartmentDetail } from '@/types/department';
+import { DepartmentDetail } from '@/feature/departments/model/department';
 import { revalidatePath } from 'next/cache';
 
 type UpdateDepartmentVariables = {
