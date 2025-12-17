@@ -10,11 +10,7 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import InfoItem from '@/components/ui/info-item';
-import {
-  DepartmentDetail,
-  DepartmentMember,
-  DepartmentProject,
-} from '@/types/department';
+import { DepartmentDetail, DepartmentMember } from '@/types/department';
 import { CoverImgModal } from '@/components/modal/CoverImgModal';
 import {
   useDeleteDepartment,
@@ -22,6 +18,8 @@ import {
 } from '@/feature/departments/model/useDepartments';
 import { MoreMenu } from '@/components/ui/more-menu';
 import { EditDepartmentModal } from '@/components/modal/EditDepartmentModal';
+import { AddProjectModal } from '@/components/modal/AddProjectModal';
+import { useProjects } from '@/feature/projects/model/useProjects';
 
 const departmentData: Record<string, DepartmentDetail> = {
   '1': {
@@ -117,11 +115,15 @@ const coverImages = [
 
 export default function DepartmentDetailPage() {
   const params = useParams<{ id: string }>();
+  const departmentId = Number(params.id);
   const router = useRouter();
   const deleteMutation = useDeleteDepartment();
   const [isEditModalOpen, setEditModalOpen] = useState(false);
+  const [isAddProjectModalOpen, setAddProjectModalOpen] = useState(false);
   const [coverImage, setCoverImage] = useState(coverImages[0]);
-  const { data: dept, isLoading, isError } = useDepartment(params.id);
+  const { data: dept, isLoading, isError } = useDepartment(departmentId);
+  const { data: projects, isLoading: isProjectsLoading } =
+    useProjects(departmentId);
 
   if (isLoading) {
     //TODO:로딩화면
@@ -205,6 +207,10 @@ export default function DepartmentDetailPage() {
                   onClick: () => setEditModalOpen(true),
                 },
                 {
+                  label: '프로젝트 추가',
+                  onClick: () => setAddProjectModalOpen(true),
+                },
+                {
                   label: '부서 삭제',
                   danger: true,
                   onClick: () => {
@@ -251,8 +257,8 @@ export default function DepartmentDetailPage() {
           </h2>
 
           <div className="space-y-4">
-            {dept.projects && dept.projects.length > 0 ? (
-              dept.projects.map((project: DepartmentProject) => (
+            {projects && projects.length > 0 ? (
+              projects.map((project) => (
                 <div
                   key={project.id}
                   className="bg-muted/20 p-6 rounded-2xl border hover:bg-muted/30 transition-colors"
@@ -367,6 +373,12 @@ export default function DepartmentDetailPage() {
           open={isEditModalOpen}
           onOpenChange={setEditModalOpen}
           department={dept}
+        />
+
+        <AddProjectModal
+          open={isAddProjectModalOpen}
+          onOpenChange={setAddProjectModalOpen}
+          departmentId={dept.id}
         />
       </section>
     </main>
