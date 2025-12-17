@@ -1,4 +1,5 @@
 import { Employee } from './employee';
+import { Project } from './project';
 
 export type DepartmentManager = Pick<
   Employee,
@@ -11,15 +12,6 @@ export type DepartmentMember = Pick<
   Employee,
   'id' | 'name' | 'position' | 'avatar' | 'is_manager'
 >;
-
-export type DepartmentProject = {
-  id: number;
-  name: string;
-  progress: number;
-  status: string;
-  due_date: string;
-  description: string;
-};
 
 export type Department = {
   id: number;
@@ -40,6 +32,6 @@ export type DepartmentDetail = Omit<
   location?: string;
   email?: string;
   members?: DepartmentMember[];
-  projects?: DepartmentProject[];
+  projects?: Project[];
   tags?: string[];
 };
