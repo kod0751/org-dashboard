@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Users, Target, ChevronLeft } from 'lucide-react';
+import { Users, Target, ChevronLeft, Plus } from 'lucide-react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
@@ -256,19 +256,13 @@ export default function DepartmentDetailPage() {
               진행중인 프로젝트
             </h2>
 
-            <MoreMenu
+            <Button
               variant="outline"
-              actions={[
-                {
-                  label: '프로젝트 추가',
-                  onClick: () => setAddProjectModalOpen(true),
-                },
-                {
-                  label: '프로젝트 관리',
-                  onClick: () => console.log('프로젝트 관리'),
-                },
-              ]}
-            />
+              className="w-9 h-9"
+              onClick={() => setAddProjectModalOpen(true)}
+            >
+              <Plus className="w-4 h-4" />
+            </Button>
           </div>
 
           <div className="space-y-4">
@@ -299,9 +293,24 @@ export default function DepartmentDetailPage() {
                         {project.description}
                       </p>
                     </div>
-                    <span className="text-xs text-muted-foreground ml-4">
-                      마감: {project.due_date}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-muted-foreground">
+                        마감: {project.due_date}
+                      </span>
+                      <MoreMenu
+                        actions={[
+                          {
+                            label: '프로젝트 수정',
+                            onClick: () => console.log('프로젝트 수정'),
+                          },
+                          {
+                            label: '프로젝트 삭제',
+                            danger: true,
+                            onClick: () => console.log('프로젝트 삭제'),
+                          },
+                        ]}
+                      />
+                    </div>
                   </div>
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
