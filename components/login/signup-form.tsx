@@ -19,8 +19,7 @@ export default function CardSignupForm({ onLogin }: CardSignupFormProps) {
         <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br from-indigo-600 to-purple-600 text-white mb-4">
           <User size={24} />
         </div>
-        <h1 className="text-2xl font-bold text-gray-900">Create Account</h1>
-        <p className="text-sm text-gray-500">Join and start today</p>
+        <h1 className="text-2xl font-bold text-gray-900">회원가입</h1>
       </div>
 
       <form className="space-y-4">
@@ -92,28 +91,18 @@ export default function CardSignupForm({ onLogin }: CardSignupFormProps) {
           </div>
         </div>
 
-        <label className="flex items-center gap-2 cursor-pointer pt-2">
-          <input type="checkbox" className="w-4 h-4 rounded border-gray-300" />
-          <span className="text-sm text-gray-600">
-            I agree to the{' '}
-            <a href="#" className="text-indigo-600 hover:underline">
-              Terms of Service
-            </a>
-          </span>
-        </label>
-
         <Button className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white h-10 font-medium">
-          Create Account
+          회원가입
         </Button>
       </form>
 
       <p className="text-center text-sm text-gray-600">
-        Already have an account?{' '}
+        이미 계정이 있으신가요?{' '}
         <button
           onClick={onLogin}
           className="text-indigo-600 hover:text-indigo-700 font-semibold"
         >
-          Sign in
+          로그인
         </button>
       </p>
     </div>

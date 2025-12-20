@@ -29,13 +29,12 @@ export default function LoginForm({ onSignup }: CardLoginFormProps) {
   };
 
   return (
-    <div className="p-8 space-y-6">
+    <div className="min-h-7xl p-8 space-y-6">
       <div className="space-y-2 text-center">
         <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br from-indigo-600 to-purple-600 text-white mb-4">
           <Lock size={24} />
         </div>
         <h1 className="text-2xl font-bold text-gray-900">로그인</h1>
-        <p className="text-sm text-gray-500">Access your account</p>
       </div>
 
       <form className="space-y-4">

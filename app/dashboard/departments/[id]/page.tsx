@@ -210,10 +210,6 @@ export default function DepartmentDetailPage() {
                   onClick: () => setEditModalOpen(true),
                 },
                 {
-                  label: '프로젝트 추가',
-                  onClick: () => setAddProjectModalOpen(true),
-                },
-                {
                   label: '부서 삭제',
                   danger: true,
                   onClick: () => {
@@ -254,10 +250,26 @@ export default function DepartmentDetailPage() {
 
         {/* 진행중인 프로젝트 */}
         <div>
-          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <Target className="w-5 h-5" />
-            진행중인 프로젝트
-          </h2>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-semibold flex items-center gap-2">
+              <Target className="w-5 h-5" />
+              진행중인 프로젝트
+            </h2>
+
+            <MoreMenu
+              variant="outline"
+              actions={[
+                {
+                  label: '프로젝트 추가',
+                  onClick: () => setAddProjectModalOpen(true),
+                },
+                {
+                  label: '프로젝트 관리',
+                  onClick: () => console.log('프로젝트 관리'),
+                },
+              ]}
+            />
+          </div>
 
           <div className="space-y-4">
             {projects && projects.length > 0 ? (
