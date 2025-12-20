@@ -41,7 +41,7 @@ export function Sidebar({ user }: SidebarProps) {
   };
 
   return (
-    <aside className="flex w-64 flex-col bg-primary">
+    <aside className="flex w-64 flex-col bg-primary h-screen sticky top-0 -z-0">
       {/* Logo */}
       <Link
         href="/dashboard"

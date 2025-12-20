@@ -70,7 +70,7 @@ export default function DepartmentsPage() {
   }
 
   return (
-    <div className="bg-white min-h-full shadow-xl">
+    <div className="bg-white min-h-full">
       <div className="flex flex-col gap-12 p-12">
         {/* 헤더 */}
         <DashboardHeader

@@ -139,7 +139,7 @@ export default function DepartmentDetailPage() {
   }
 
   return (
-    <main className="flex-1 font-['NanumSquareNeo'] shadow-xl">
+    <main className="flex-1 font-['NanumSquareNeo']">
       {/* 커버 이미지 영역 */}
       <header className="relative h-64 bg-gradient-to-r from-primary/20 to-accent/20 overflow-hidden group">
         <Image

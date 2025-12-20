@@ -15,7 +15,7 @@ export default async function DashboardLayout({
   return (
     <div className="flex min-h-screen">
       <Sidebar user={user} />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 shadow-xl relative">{children}</main>
     </div>
   );
 }

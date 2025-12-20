@@ -5,7 +5,7 @@ import { DashboardHeader } from '../../components/layout/header';
 
 export default function DashboardPage() {
   return (
-    <div className="bg-white min-h-full shadow-xl">
+    <div className="bg-white min-h-full">
       <div className="flex flex-col gap-12 p-12">
         {/* Header */}
         <DashboardHeader title="Dashboard" />
