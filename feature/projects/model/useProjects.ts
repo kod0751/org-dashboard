@@ -1,12 +1,15 @@
-import { createProject } from '@/shared/api/departments/projects/mutations';
-import { getProjectsByDepartment } from '@/shared/api/departments/projects/queries';
-import { Project } from '@/feature/projects/model/project';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { toast } from 'sonner';
+import {
+  createProject,
+  updateProject,
+} from "@/shared/api/departments/projects/mutations";
+import { getProjectsByDepartment } from "@/shared/api/departments/projects/queries";
+import { Project } from "@/feature/projects/model/project";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 export function useProjects(departmentId: number) {
   return useQuery<Project[]>({
-    queryKey: ['projects', departmentId],
+    queryKey: ["projects", departmentId],
     queryFn: () => getProjectsByDepartment(departmentId),
     enabled: !!departmentId,
   });
@@ -18,14 +21,34 @@ export function useCreateProject() {
   return useMutation({
     mutationFn: createProject,
     onSuccess: (data, variables) => {
-      queryClient.invalidateQueries({ queryKey: ['projects'] });
+      queryClient.invalidateQueries({ queryKey: ["projects"] });
       queryClient.invalidateQueries({
-        queryKey: ['departments', variables.department_id],
+        queryKey: ["departments", variables.department_id],
       });
-      toast.success('프로젝트가 추가되었습니다.');
+      toast.success("프로젝트가 추가되었습니다.");
     },
     onError: () => {
-      toast.error('프로젝트 추가에 실패했습니다.');
+      toast.error("프로젝트 추가에 실패했습니다.");
+    },
+  });
+}
+
+export function useUpdateProject() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateProject,
+    onSuccess: (data, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: ["projects", variables.department_id],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["departments", variables.department_id],
+      });
+      toast.success("부서 정보가 수정되었습니다.");
+    },
+    onError: () => {
+      toast.error("부서 정보 수정에 실패했습니다.");
     },
   });
 }
