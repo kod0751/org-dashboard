@@ -5,4 +5,5 @@ export type Project = {
   status: string;
   due_date: string;
   description: string;
+  department_id: number;
 };

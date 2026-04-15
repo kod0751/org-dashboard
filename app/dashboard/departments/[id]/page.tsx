@@ -1,126 +1,47 @@
-'use client';
+"use client";
 
-import { useParams, useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
-import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Users, Target, ChevronLeft, Plus } from 'lucide-react';
-import Image from 'next/image';
-import { cn } from '@/lib/utils';
-import { useState } from 'react';
-import InfoItem from '@/components/ui/info-item';
+import { useParams, useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Users, Target, ChevronLeft, Plus } from "lucide-react";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
+import { useState } from "react";
+import InfoItem from "@/components/ui/info-item";
 import {
   DepartmentDetail,
   DepartmentMember,
-} from '@/feature/departments/model/department';
-import { CoverImgModal } from '@/components/modal/CoverImgModal';
+} from "@/feature/departments/model/department";
+import { CoverImgModal } from "@/components/modal/CoverImgModal";
 import {
   useDeleteDepartment,
   useDepartment,
-} from '@/feature/departments/model/useDepartments';
-import { MoreMenu } from '@/components/ui/more-menu';
-import { EditDepartmentModal } from '@/components/modal/EditDepartmentModal';
-import { AddProjectModal } from '@/components/modal/AddProjectModal';
-import { useProjects } from '@/feature/projects/model/useProjects';
-
-const departmentData: Record<string, DepartmentDetail> = {
-  '1': {
-    id: 1,
-    name: '개발팀',
-    color: 'bg-blue-500',
-    created_at: '2022-03-15',
-    members: [],
-    projects: [],
-    tags: [],
-  },
-  '2': {
-    id: 2,
-    name: '디자인팀',
-    manager: {
-      name: '이수진',
-      position: 'Head of Design',
-      avatar: '/placeholder.svg?height=160&width=160',
-      is_manager: true,
-    },
-    description:
-      'UI/UX 및 브랜드 디자인을 총괄하며, 사용자에게 최고의 경험을 제공하기 위해 노력합니다.',
-    color: 'bg-pink-500',
-    created_at: '2022-06-10',
-    location: '본사 4층 B구역',
-    email: 'design-team@company.com',
-    members: [
-      {
-        id: 1,
-        name: '이수진',
-        position: '팀장',
-        avatar: '/placeholder.svg?height=100&width=100',
-        is_manager: true,
-      },
-      {
-        id: 2,
-        name: '김예린',
-        position: 'UI/UX 디자이너',
-        avatar: '/placeholder.svg?height=100&width=100',
-        is_manager: false,
-      },
-      {
-        id: 3,
-        name: '박준형',
-        position: '그래픽 디자이너',
-        avatar: '/placeholder.svg?height=100&width=100',
-        is_manager: false,
-      },
-      {
-        id: 4,
-        name: '최유나',
-        position: '프로덕트 디자이너',
-        avatar: '/placeholder.svg?height=100&width=100',
-        is_manager: false,
-      },
-    ],
-    projects: [
-      {
-        id: 1,
-        name: '브랜드 리디자인',
-        progress: 65,
-        status: 'In Progress',
-        due_date: '2024-03-25',
-        description: '브랜드 아이덴티티 새단장',
-      },
-      {
-        id: 2,
-        name: '디자인 시스템 구축',
-        progress: 80,
-        status: 'On Track',
-        due_date: '2024-02-28',
-        description: '일관된 디자인 언어 정립',
-      },
-      {
-        id: 3,
-        name: '모바일 UI 개선',
-        progress: 50,
-        status: 'In Progress',
-        due_date: '2024-04-10',
-        description: '모바일 사용성 향상',
-      },
-    ],
-    tags: ['Figma', 'Sketch', 'Adobe XD', 'Prototyping'],
-  },
-};
+} from "@/feature/departments/model/useDepartments";
+import { MoreMenu } from "@/components/ui/more-menu";
+import { EditDepartmentModal } from "@/components/modal/EditDepartmentModal";
+import { AddProjectModal } from "@/components/modal/AddProjectModal";
+import { useProjects } from "@/feature/projects/model/useProjects";
+import { EditProjectModal } from "@/components/modal/EditProjectModal";
+import { Project } from "@/feature/projects/model/project";
 
 const coverImages = [
-  'https://images.pexels.com/photos/34505016/pexels-photo-34505016.jpeg',
-  'https://images.pexels.com/photos/33039121/pexels-photo-33039121.jpeg',
-  'https://images.pexels.com/photos/2325447/pexels-photo-2325447.jpeg',
-  'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F5612288%2Fpexels-photo-5612288.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26h%3D627%26fit%3Dcrop%26w%3D1200&type=sc960_832',
+  "https://images.pexels.com/photos/34505016/pexels-photo-34505016.jpeg",
+  "https://images.pexels.com/photos/33039121/pexels-photo-33039121.jpeg",
+  "https://images.pexels.com/photos/2325447/pexels-photo-2325447.jpeg",
+  "https://search.pstatic.net/sunny/?src=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F5612288%2Fpexels-photo-5612288.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26h%3D627%26fit%3Dcrop%26w%3D1200&type=sc960_832",
 ];
 
 export default function DepartmentDetailPage() {
   const params = useParams<{ id: string }>();
   const departmentId = Number(params.id);
   const router = useRouter();
+
   const deleteMutation = useDeleteDepartment();
+
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isEditProjectModalOpen, setEditProjectModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isAddProjectModalOpen, setAddProjectModalOpen] = useState(false);
   const [coverImage, setCoverImage] = useState(coverImages[0]);
@@ -176,8 +97,8 @@ export default function DepartmentDetailPage() {
             <div className="relative w-40 h-40 rounded-full border-4 border-card shadow-lg bg-muted overflow-hidden">
               <div
                 className={cn(
-                  'w-full h-full flex items-center justify-center text-white',
-                  dept.color
+                  "w-full h-full flex items-center justify-center text-white",
+                  dept.color,
                 )}
               >
                 <Users className="w-20 h-20" />
@@ -206,15 +127,15 @@ export default function DepartmentDetailPage() {
               variant="outline"
               actions={[
                 {
-                  label: '부서 수정',
+                  label: "부서 수정",
                   onClick: () => setEditModalOpen(true),
                 },
                 {
-                  label: '부서 삭제',
+                  label: "부서 삭제",
                   danger: true,
                   onClick: () => {
                     deleteMutation.mutate(dept.id);
-                    router.push('/dashboard/departments');
+                    router.push("/dashboard/departments");
                   },
                 },
               ]}
@@ -230,7 +151,7 @@ export default function DepartmentDetailPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-muted/20 p-6 rounded-2xl border">
             <InfoItem label="이메일" value={dept.email} />
             <InfoItem label="위치" value={dept.location} />
-            <InfoItem label="설립일" value={dept.created_at.split('T')[0]} />
+            <InfoItem label="설립일" value={dept.created_at.split("T")[0]} />
             <InfoItem
               label="팀원 수"
               value={`${dept.members?.length ?? 0}명`}
@@ -243,7 +164,7 @@ export default function DepartmentDetailPage() {
           <h2 className="text-xl font-semibold mb-4">부서 소개</h2>
           <div className="bg-muted/20 p-6 rounded-2xl border">
             <p className="text-muted-foreground leading-relaxed">
-              {dept.description || '아직 부서 설명이 없습니다'}
+              {dept.description || "아직 부서 설명이 없습니다"}
             </p>
           </div>
         </div>
@@ -280,9 +201,9 @@ export default function DepartmentDetailPage() {
                         </h3>
                         <Badge
                           variant={
-                            project.status === 'In Progress'
-                              ? 'default'
-                              : 'secondary'
+                            project.status === "In Progress"
+                              ? "default"
+                              : "secondary"
                           }
                           className="text-xs"
                         >
@@ -300,13 +221,16 @@ export default function DepartmentDetailPage() {
                       <MoreMenu
                         actions={[
                           {
-                            label: '프로젝트 수정',
-                            onClick: () => console.log('프로젝트 수정'),
+                            label: "프로젝트 수정",
+                            onClick: () => {
+                              setSelectedProject(project);
+                              setEditProjectModalOpen(true);
+                            },
                           },
                           {
-                            label: '프로젝트 삭제',
+                            label: "프로젝트 삭제",
                             danger: true,
-                            onClick: () => console.log('프로젝트 삭제'),
+                            onClick: () => console.log("프로젝트 삭제"),
                           },
                         ]}
                       />
@@ -344,12 +268,12 @@ export default function DepartmentDetailPage() {
                   className="border rounded-xl p-4 hover:bg-muted/30 transition-colors cursor-pointer flex items-center gap-4"
                 >
                   <Avatar className="w-12 h-12">
-                    <AvatarImage src={member.avatar || '/placeholder.svg'} />
+                    <AvatarImage src={member.avatar || "/placeholder.svg"} />
                     <AvatarFallback
                       className={
-                        member.position === '팀장'
-                          ? dept.color + ' text-white'
-                          : ''
+                        member.position === "팀장"
+                          ? dept.color + " text-white"
+                          : ""
                       }
                     >
                       {member.name[0]}
@@ -404,6 +328,19 @@ export default function DepartmentDetailPage() {
           onOpenChange={setAddProjectModalOpen}
           departmentId={dept.id}
         />
+
+        {selectedProject && (
+          <>
+            <EditProjectModal
+              open={isEditProjectModalOpen}
+              onOpenChange={(open) => {
+                setEditProjectModalOpen(open);
+                if (!open) setSelectedProject(null);
+              }}
+              project={selectedProject}
+            />
+          </>
+        )}
       </section>
     </main>
   );
