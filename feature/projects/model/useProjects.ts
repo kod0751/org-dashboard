@@ -21,7 +21,9 @@ export function useCreateProject() {
   return useMutation({
     mutationFn: createProject,
     onSuccess: (data, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["projects"] });
+      queryClient.invalidateQueries({
+        queryKey: ["projects", variables.department_id],
+      });
       queryClient.invalidateQueries({
         queryKey: ["departments", variables.department_id],
       });
