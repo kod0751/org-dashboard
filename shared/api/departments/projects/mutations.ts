@@ -27,7 +27,7 @@ export async function createProject(payload: CreateProjectInput) {
     .insert({
       ...payload,
       progress: 0,
-      status: "In progress",
+      status: "진행중",
     })
     .select()
     .single();
