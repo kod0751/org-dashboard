@@ -1,5 +1,6 @@
 import {
   createProject,
+  deleteProject,
   updateProject,
 } from "@/shared/api/departments/projects/mutations";
 import { getProjectsByDepartment } from "@/shared/api/departments/projects/queries";
@@ -40,17 +41,37 @@ export function useUpdateProject() {
 
   return useMutation({
     mutationFn: updateProject,
-    onSuccess: (data, variables) => {
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
         queryKey: ["projects", variables.department_id],
       });
       queryClient.invalidateQueries({
         queryKey: ["departments", variables.department_id],
       });
-      toast.success("부서 정보가 수정되었습니다.");
+      toast.success("프로젝트 정보가 수정되었습니다.");
     },
     onError: () => {
-      toast.error("부서 정보 수정에 실패했습니다.");
+      toast.error("프로젝트 정보 수정에 실패했습니다.");
+    },
+  });
+}
+
+export function useDeleteProject() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteProject,
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: ["projects", variables.department_id],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["departments", variables.department_id],
+      });
+      toast.success("해당 프로젝트를 성공적으로 제거했습니다.");
+    },
+    onError: () => {
+      toast.error("프로젝트 제거에 실패했습니다.");
     },
   });
 }
