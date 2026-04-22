@@ -25,6 +25,7 @@ import { AddProjectModal } from "@/components/modal/AddProjectModal";
 import { useProjects } from "@/feature/projects/model/useProjects";
 import { EditProjectModal } from "@/components/modal/EditProjectModal";
 import { Project } from "@/feature/projects/model/project";
+import { DeleteProjectModal } from "@/components/modal/DeleteProjectModal";
 
 const coverImages = [
   "https://images.pexels.com/photos/34505016/pexels-photo-34505016.jpeg",
@@ -43,6 +44,7 @@ export default function DepartmentDetailPage() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isEditProjectModalOpen, setEditProjectModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
+  const [isDeleteProjectModalOpen, setDeleteProjectModalOpen] = useState(false);
   const [isAddProjectModalOpen, setAddProjectModalOpen] = useState(false);
   const [coverImage, setCoverImage] = useState(coverImages[0]);
   const { data: dept, isLoading, isError } = useDepartment(departmentId);
@@ -230,7 +232,10 @@ export default function DepartmentDetailPage() {
                           {
                             label: "프로젝트 삭제",
                             danger: true,
-                            onClick: () => console.log("프로젝트 삭제"),
+                            onClick: () => {
+                              setSelectedProject(project);
+                              setDeleteProjectModalOpen(true);
+                            },
                           },
                         ]}
                       />
@@ -335,6 +340,14 @@ export default function DepartmentDetailPage() {
               open={isEditProjectModalOpen}
               onOpenChange={(open) => {
                 setEditProjectModalOpen(open);
+                if (!open) setSelectedProject(null);
+              }}
+              project={selectedProject}
+            />
+            <DeleteProjectModal
+              open={isDeleteProjectModalOpen}
+              onOpenChange={(open) => {
+                setDeleteProjectModalOpen(open);
                 if (!open) setSelectedProject(null);
               }}
               project={selectedProject}
