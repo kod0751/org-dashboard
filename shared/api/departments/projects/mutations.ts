@@ -58,3 +58,20 @@ export async function updateProject(payload: UpdateProjectInput) {
 
   return data;
 }
+
+export async function deleteProject(payload: {
+  id: number;
+  department_id: number;
+}) {
+  const supabase = await createClient();
+
+  const { error } = await supabase
+    .from("projects")
+    .delete()
+    .eq("id", payload.id);
+
+  if (error) {
+    console.error("[deleteProject] 상세 에러:", JSON.stringify(error, null, 2));
+    throw new Error("프로젝트 삭제에 실패했습니다.");
+  }
+}
