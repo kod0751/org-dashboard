@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useForm } from 'react-hook-form';
+import { useForm } from "react-hook-form";
 import {
   Dialog,
   DialogContent,
@@ -8,11 +8,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { UserPlus } from 'lucide-react';
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { UserPlus } from "lucide-react";
+import { createEmployee } from "@/shared/api/employees/mutation";
 
 interface AddMemberModalProps {
   open: boolean;
@@ -22,7 +23,7 @@ interface AddMemberModalProps {
 interface TeamMemberFormData {
   name: string;
   email: string;
-  role: string;
+  position: string;
   department: string;
 }
 
@@ -34,23 +35,25 @@ export function AddMemberModal({ open, onOpenChange }: AddMemberModalProps) {
     formState: { errors, isSubmitting },
   } = useForm<TeamMemberFormData>({
     defaultValues: {
-      name: '',
-      email: '',
-      role: '',
-      department: '',
+      name: "",
+      email: "",
+      position: "",
+      department: "",
     },
   });
 
   const onSubmit = async (data: TeamMemberFormData) => {
     try {
-      console.log('팀원 추가:', data);
-
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await createEmployee({
+        name: data.name,
+        email: data.email,
+        position: data.position,
+      });
 
       reset();
       onOpenChange(false);
     } catch (error) {
-      console.error('팀원 추가 실패:', error);
+      console.error("팀원 추가 실패:", error);
     }
   };
 
@@ -84,11 +87,11 @@ export function AddMemberModal({ open, onOpenChange }: AddMemberModalProps) {
               <Input
                 id="name"
                 placeholder="팀원의 이름을 입력하세요"
-                {...register('name', {
-                  required: '이름을 입력해주세요',
+                {...register("name", {
+                  required: "이름을 입력해주세요",
                   minLength: {
                     value: 2,
-                    message: '이름은 최소 2자 이상이어야 합니다',
+                    message: "이름은 최소 2자 이상이어야 합니다",
                   },
                 })}
                 disabled={isSubmitting}
@@ -110,11 +113,11 @@ export function AddMemberModal({ open, onOpenChange }: AddMemberModalProps) {
                 id="email"
                 type="email"
                 placeholder="example@company.com"
-                {...register('email', {
-                  required: '이메일을 입력해주세요',
+                {...register("email", {
+                  required: "이메일을 입력해주세요",
                   pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: '올바른 이메일 형식이 아닙니다',
+                    message: "올바른 이메일 형식이 아닙니다",
                   },
                 })}
                 disabled={isSubmitting}
@@ -130,21 +133,21 @@ export function AddMemberModal({ open, onOpenChange }: AddMemberModalProps) {
             <div className="grid grid-cols-2 gap-4">
               {/* 직책 입력 */}
               <div className="space-y-2">
-                <Label htmlFor="role" className="text-sm font-semibold">
+                <Label htmlFor="position" className="text-sm font-semibold">
                   직책 <span className="text-destructive">*</span>
                 </Label>
                 <Input
-                  id="role"
+                  id="position"
                   placeholder="예: 개발자, 매니저"
-                  {...register('role', {
-                    required: '직책을 입력해주세요',
+                  {...register("position", {
+                    required: "직책을 입력해주세요",
                   })}
                   disabled={isSubmitting}
                   className="h-10 border-border/50 focus:border-primary"
                 />
-                {errors.role && (
+                {errors.position && (
                   <p className="text-sm text-destructive">
-                    {errors.role.message}
+                    {errors.position.message}
                   </p>
                 )}
               </div>
@@ -172,7 +175,7 @@ export function AddMemberModal({ open, onOpenChange }: AddMemberModalProps) {
                   추가 중...
                 </span>
               ) : (
-                '팀원 추가'
+                "팀원 추가"
               )}
             </Button>
           </DialogFooter>

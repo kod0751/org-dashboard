@@ -20,6 +20,6 @@ export async function createEmployee(payload: CreateEmployee) {
 
   if (error) throw new Error(error.message);
 
-  revalidatePath("/employees");
+  revalidatePath("/dashboard/employees");
   return data;
 }
