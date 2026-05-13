@@ -1,10 +1,10 @@
 "use client";
 
 import { CoverImgModal } from "@/components/modal/CoverImgModal";
-import { Button } from "@/components/ui/button";
 import InfoItem from "@/components/ui/info-item";
+import { MoreMenu } from "@/components/ui/more-menu";
 import type { EmployeeDetail } from "@/feature/employees/model/employee";
-import { ChevronLeft, MoreVertical } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -71,14 +71,20 @@ export function EmployeeDetail({ employee }: Props) {
               )}
             </div>
           </div>
-          <div>
-            <Button
-              variant="outline"
-              className="border-border hover:bg-muted px-6 bg-transparent"
-            >
-              <MoreVertical className="w-4 h-4" />
-            </Button>
-          </div>
+          <MoreMenu
+            variant="outline"
+            actions={[
+              {
+                label: "프로필 수정",
+                onClick: () => {}, // 수정 모달 열기 (나중에 연결)
+              },
+              {
+                label: "삭제",
+                danger: true,
+                onClick: () => {}, // 삭제 (나중에 연결)
+              },
+            ]}
+          />
         </div>
       </div>
 
