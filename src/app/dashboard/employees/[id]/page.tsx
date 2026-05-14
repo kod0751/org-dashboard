@@ -1,4 +1,5 @@
 import { getEmployeeDetail } from "@/shared/api/employees/queries";
+import { getDepartments } from "@/shared/api/departments/queries";
 import { EmployeeDetail } from "./EmployeeDetail";
 
 type Props = {
@@ -6,6 +7,10 @@ type Props = {
 };
 
 export default async function EmployeeDetailPage({ params }: Props) {
-  const employee = await getEmployeeDetail(Number(params.id));
-  return <EmployeeDetail employee={employee} />;
+  const [employee, departments] = await Promise.all([
+    getEmployeeDetail(Number(params.id)),
+    getDepartments(),
+  ]);
+
+  return <EmployeeDetail employee={employee} departments={departments} />;
 }

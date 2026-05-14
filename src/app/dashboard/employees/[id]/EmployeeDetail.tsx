@@ -1,6 +1,7 @@
 "use client";
 
 import { CoverImgModal } from "@/components/modal/CoverImgModal";
+import { EditEmployeeModal } from "@/components/modal/EditEmployeeModal";
 import InfoItem from "@/components/ui/info-item";
 import { MoreMenu } from "@/components/ui/more-menu";
 import type { EmployeeDetail } from "@/feature/employees/model/employee";
@@ -17,11 +18,13 @@ const coverImages = [
 
 type Props = {
   employee: EmployeeDetail;
+  departments: { id: number; name: string }[];
 };
 
-export function EmployeeDetail({ employee }: Props) {
+export function EmployeeDetail({ employee, departments }: Props) {
   const router = useRouter();
   const [coverImage, setCoverImage] = useState(coverImages[0]);
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
 
   return (
     <main className="flex-1 font-['NanumSquareNeo']">
@@ -76,7 +79,7 @@ export function EmployeeDetail({ employee }: Props) {
             actions={[
               {
                 label: "프로필 수정",
-                onClick: () => {}, // 수정 모달 열기 (나중에 연결)
+                onClick: () => setEditModalOpen(true),
               },
               {
                 label: "삭제",
@@ -129,6 +132,13 @@ export function EmployeeDetail({ employee }: Props) {
             )}
           </div>
         </div>
+
+        <EditEmployeeModal
+          open={isEditModalOpen}
+          onOpenChange={setEditModalOpen}
+          employee={employee}
+          departments={departments}
+        />
       </section>
     </main>
   );
