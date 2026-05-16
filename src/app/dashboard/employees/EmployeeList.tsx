@@ -10,13 +10,24 @@ import { ArrowUpDown, SlidersHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-type Props = {
-  employees: Employee[];
+type Department = {
+  id: number;
+  name: string;
 };
 
-export function EmployeeList({ employees }: Props) {
+type Props = {
+  employees: Employee[];
+  departments: Department[];
+};
+
+export function EmployeeList({ employees, departments }: Props) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const getDepartmentName = (department_id: number | undefined) => {
+    if (!department_id) return "-";
+    return departments.find((d) => d.id === department_id)?.name ?? "-";
+  };
 
   return (
     <div className="bg-white min-h-full">
@@ -66,7 +77,9 @@ export function EmployeeList({ employees }: Props) {
                     <div className="truncate">{employee.name}</div>
                   </div>
                   <div className="truncate">{employee.position}</div>
-                  <div className="truncate">{employee.department}</div>
+                  <div className="truncate">
+                    {getDepartmentName(employee.department_id)}
+                  </div>
                   <div className="truncate">{employee.email}</div>
                   <div className="truncate">{employee.status}</div>
                   <MoreMenu
