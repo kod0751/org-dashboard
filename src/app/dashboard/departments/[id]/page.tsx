@@ -10,10 +10,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import InfoItem from "@/components/ui/info-item";
-import {
-  DepartmentDetail,
-  DepartmentMember,
-} from "@/feature/departments/model/department";
+import { DepartmentMember } from "@/feature/departments/model/department";
 import { CoverImgModal } from "@/components/modal/CoverImgModal";
 import {
   useDeleteDepartment,
@@ -48,8 +45,7 @@ export default function DepartmentDetailPage() {
   const [isAddProjectModalOpen, setAddProjectModalOpen] = useState(false);
   const [coverImage, setCoverImage] = useState(coverImages[0]);
   const { data: dept, isLoading, isError } = useDepartment(departmentId);
-  const { data: projects, isLoading: isProjectsLoading } =
-    useProjects(departmentId);
+  const { data: projects } = useProjects(departmentId);
 
   if (isLoading) {
     //TODO:로딩화면
