@@ -2,10 +2,10 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { ImageIcon, MoreVertical } from 'lucide-react';
-import Image from 'next/image';
-import { cn } from '@/lib/utils';
+} from "@/components/ui/dropdown-menu";
+import { MoreVertical } from "lucide-react";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 interface CoverImgModalProps {
   images: string[];
@@ -32,10 +32,10 @@ export function CoverImgModal({
               key={index}
               onClick={() => onImageChange(image)}
               className={cn(
-                'relative aspect-square rounded-lg overflow-hidden border-2 transition-all hover:scale-105',
+                "relative aspect-square rounded-lg overflow-hidden border-2 transition-all hover:scale-105",
                 currentImage === image
-                  ? 'border-primary ring-2 ring-primary/20'
-                  : 'border-transparent hover:border-muted-foreground/20'
+                  ? "border-primary ring-2 ring-primary/20"
+                  : "border-transparent hover:border-muted-foreground/20",
               )}
             >
               <Image
