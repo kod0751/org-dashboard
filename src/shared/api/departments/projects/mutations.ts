@@ -13,7 +13,6 @@ type UpdateProjectInput = {
   id: number;
   department_id: number;
   name?: string;
-  description?: string;
   due_date?: string | null;
   progress?: number;
   status?: string;
@@ -42,7 +41,7 @@ export async function createProject(payload: CreateProjectInput) {
 
 export async function updateProject(payload: UpdateProjectInput) {
   const supabase = await createClient();
-  const { id, department_id, ...body } = payload;
+  const { id, ...body } = payload;
 
   const { data, error } = await supabase
     .from("projects")
