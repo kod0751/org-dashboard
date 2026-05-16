@@ -3,12 +3,14 @@ import { getDepartments } from "@/shared/api/departments/queries";
 import { EmployeeDetail } from "./EmployeeDetail";
 
 type Props = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export default async function EmployeeDetailPage({ params }: Props) {
+  const { id } = await params;
+
   const [employee, departments] = await Promise.all([
-    getEmployeeDetail(Number(params.id)),
+    getEmployeeDetail(Number(id)),
     getDepartments(),
   ]);
 
