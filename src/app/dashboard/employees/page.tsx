@@ -1,7 +1,12 @@
 import { getEmployees } from "@/shared/api/employees/queries";
 import { EmployeeList } from "./EmployeeList";
+import { getDepartments } from "@/shared/api/departments/queries";
 
 export default async function EmployeesPage() {
-  const employees = await getEmployees();
-  return <EmployeeList employees={employees} />;
+  const [employees, departments] = await Promise.all([
+    getEmployees(),
+    getDepartments(),
+  ]);
+
+  return <EmployeeList employees={employees} departments={departments} />;
 }

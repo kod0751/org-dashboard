@@ -2,7 +2,7 @@ export type Employee = {
   id: number;
   name: string;
   position?: string;
-  department?: string;
+  department_id?: number;
   email: string;
   avatar?: string;
   status?: string;
