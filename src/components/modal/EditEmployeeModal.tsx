@@ -19,6 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { updateEmployee } from "@/shared/api/employees/mutation";
 
 interface EditEmployeeModalProps {
   open: boolean;
@@ -32,7 +33,7 @@ interface EditEmployeeFormData {
   email: string;
   phone: string;
   position: string;
-  department: string;
+  department_id: number | null; // ID 기반으로 변경
   location: string;
   work_type: string;
 }
@@ -55,7 +56,7 @@ export function EditEmployeeModal({
       email: employee.email ?? "",
       phone: employee.phone ?? "",
       position: employee.position ?? "",
-      department: employee.department ?? "",
+      department_id: employee.department_id ?? null, // 기존 부서 ID 연결
       location: employee.location ?? "",
       work_type: employee.work_type ?? "",
     },
@@ -63,16 +64,28 @@ export function EditEmployeeModal({
 
   const onSubmit = async (data: EditEmployeeFormData) => {
     try {
-      console.log("수정:", data); // 나중에 updateEmployee mutation 연결
-      reset();
+      await updateEmployee({
+        id: employee.id,
+        payload: {
+          name: data.name,
+          email: data.email,
+          phone: data.phone || undefined,
+          position: data.position || undefined,
+          department_id: data.department_id,
+          location: data.location || undefined,
+          work_type: data.work_type || undefined,
+        },
+      });
+
       onOpenChange(false);
     } catch (error) {
       console.error("수정 실패:", error);
+      alert("정보 수정 중 오류가 발생했습니다.");
     }
   };
 
   const handleClose = () => {
-    reset();
+    reset(); // 입력값 초기화
     onOpenChange(false);
   };
 
@@ -84,7 +97,6 @@ export function EditEmployeeModal({
         </DialogHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 py-4">
-          {/* 이름 */}
           <div className="space-y-2">
             <Label>이름 *</Label>
             <Input {...register("name", { required: "이름을 입력해주세요" })} />
@@ -93,7 +105,6 @@ export function EditEmployeeModal({
             )}
           </div>
 
-          {/* 이메일 */}
           <div className="space-y-2">
             <Label>이메일 *</Label>
             <Input
@@ -111,33 +122,37 @@ export function EditEmployeeModal({
             )}
           </div>
 
-          {/* 전화번호 */}
           <div className="space-y-2">
             <Label>전화번호</Label>
             <Input {...register("phone")} placeholder="+82 10-0000-0000" />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            {/* 직책 */}
             <div className="space-y-2">
               <Label>직책</Label>
               <Input {...register("position")} placeholder="예: 개발자" />
             </div>
 
-            {/* 부서 */}
             <div className="space-y-2">
               <Label>부서</Label>
               <Controller
-                name="department"
+                name="department_id"
                 control={control}
                 render={({ field }) => (
-                  <Select value={field.value} onValueChange={field.onChange}>
+                  <Select
+                    // Select 컴포넌트의 value는 문자열이어야 하므로 변환 처리
+                    value={field.value?.toString() || "unassigned"}
+                    onValueChange={(val) =>
+                      field.onChange(val === "unassigned" ? null : Number(val))
+                    }
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="부서 선택" />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="unassigned">부서 없음</SelectItem>
                       {departments.map((dept) => (
-                        <SelectItem key={dept.id} value={dept.name}>
+                        <SelectItem key={dept.id} value={dept.id.toString()}>
                           {dept.name}
                         </SelectItem>
                       ))}
@@ -149,13 +164,11 @@ export function EditEmployeeModal({
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            {/* 위치 */}
             <div className="space-y-2">
               <Label>위치</Label>
               <Input {...register("location")} placeholder="예: 서울" />
             </div>
 
-            {/* 근무 형태 */}
             <div className="space-y-2">
               <Label>근무 형태</Label>
               <Input {...register("work_type")} placeholder="예: 정규직" />
