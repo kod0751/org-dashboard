@@ -1,0 +1,28 @@
+name: Next.js CI Pipeline
+
+on:
+  push:
+    branches: [main] # main 브랜치에 push될 때 실행
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest # 최신 리눅스 환경 빌리기
+
+    steps:
+      - name: 1. 소스 코드 가져오기
+        uses: actions/checkout@v4
+
+      - name: 2. Node.js 환경 세팅
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20" # @types/node 스펙에 맞춰 안정적인 20버전 사용
+          cache: "npm" # npm 패키지 빌드 속도 최적화를 위한 캐싱
+
+      - name: 3. 패키지 설치
+        run: npm ci
+
+      - name: 4. 문법 및 코드 스타일 검사 (ESLint)
+        run: npm run lint
+
+      - name: 5. Next.js 프로덕션 빌드 테스트
+        run: npm run build
